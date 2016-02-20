@@ -48,25 +48,10 @@ while not done:
     # Clear the screen and set the screen background
     screen.fill(WHITE)
  
-    # Draw some borders
-    pygame.draw.line(screen, BLACK, [100,50], [200, 50])
-    pygame.draw.line(screen, BLACK, [100,50], [100, 150])
- 
-    # Select the font to use, size, bold, italics
-    font = pygame.font.SysFont('Calibri', 25, True, False)
- 
-    # Sideways text
-    text = font.render("Sideways text", True, BLACK)
-    text = pygame.transform.rotate(text, 270)
-    screen.blit(text, [0, 0])
- 
-    # Upside Down text
-    text = font.render("Upside down text", True, BLACK)
-    text = pygame.transform.rotate(text, 180)
-    screen.blit(text, [30, 0])
- 
     # Go ahead and update the screen with what we've drawn.
     # This MUST happen after all the other drawing commands.
+    image = pygame.image.load('car.jpeg')
+    screen.blit(image,(10,10))
     pygame.display.flip()
  
     # This limits the while loop to a max of 60 times per second.
