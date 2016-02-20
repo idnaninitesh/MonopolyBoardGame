@@ -16,6 +16,7 @@ Features :
 
 Future Scope (If time permits) :
 
+* Add image/rect for chance and community cards
 * Add hover effect to the cards on the board
 * Display the property details(cost, mortgage value, rent etc.) of the card when it is being focused
 * History Box to display the progress of game with timestamp
