@@ -17,7 +17,7 @@ def create_board(screen):
             for col in range(BOARD_COLS):
                 grid[row].append(0)
 
-
+        screen.fill(BLACK)
 
         # creating the board
         for row in range(BOARD_ROWS):
@@ -692,3 +692,125 @@ def create_board(screen):
         text = pygame.transform.rotate(text, 180)
         screen.blit(text, (825, 10))
 
+
+
+        #adding dice and pieces(blue,red,green,yellow
+        # x = x coordinate of the card
+        # y = y coordinate of the card
+        # blue position   = x + 20, y + 20
+        # red position    = x + 60, y + 20
+        # green position  = x + 20, y + 50
+        # yellow position = x + 60, y + 50
+
+        # BLUE PIECE    (PLAYER 1)
+
+        pygame.draw.circle(screen,
+                           BLUE,
+                           (1020,720),
+                           10)
+
+
+        # RED PIECE     (PLAYER 2)
+
+        pygame.draw.circle(screen,
+                           RED,
+                           (1060,720),
+                           10)
+
+
+
+        # GREEN PIECE   (PLAYER 3)
+
+        pygame.draw.circle(screen,
+                           GREEN,
+                           (1020,750),
+                           10)
+
+
+
+        # YELLOW PIECE  (PLAYER 4)
+
+        pygame.draw.circle(screen,
+                           YELLOW,
+                           (1060,750),
+                           10)
+
+
+
+        # DICE
+        # dice 1 boundary ( 650 <= x <= 800  250 <= y <= 350 )
+        # dice 2 boundart ( 400 <= x <= 600  350 <= y <= 500 )
+        # dice width = dice height = 35
+        # spot radius = 5
+
+        
+        
+        pygame.draw.rect(screen,
+                         WHITE,
+                         ((700,300),
+                         (35,35)))
+
+        # no = 4
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (707,307),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (727,307),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (707,327),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (727,327),
+                           5)
+
+
+        
+
+        pygame.draw.rect(screen,
+                         WHITE,
+                         ((600,350),
+                         (35,35)))
+
+
+        # no = 5
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (607,357),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (627,357),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (617,367),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (607,377),
+                           5)
+
+        pygame.draw.circle(screen,
+                           BLACK,
+                           (627,377),
+                           5)
+
+
+
+
+        
+
+
+
+        
