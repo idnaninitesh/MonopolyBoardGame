@@ -16,20 +16,20 @@ def create_player_info(screen):
 
     # PLAYER 1
     pygame.draw.rect(screen,
-                     color,
+                     BLUE,
                      (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
                        INFO_MARGIN),
                       (INFO_WIDTH,
                       INFO_HEIGHT)),2)
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
-    screen.blit(font.render('PLAYER 1', True, WHITE), (1155, 55))
-    screen.blit(font.render('M 1500', True, WHITE), (1350, 55))
+    screen.blit(font.render('PLAYER 1', True, BLUE), (1155, 55))
+    screen.blit(font.render('M 1500', True, BLUE), (1350, 55))
 
 
     # PLAYER INFO
     pygame.draw.rect(screen,
-                     color,
+                     BLUE,
                      (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
                        INFO_MARGIN + INFO_HEIGHT),
                       (INFO_WIDTH,
@@ -86,7 +86,7 @@ def create_player_info(screen):
                      ((1330,
                        100),
                       (25,
-                       25)))
+                       25)),2)
 
 
     #   WATER WORKS
@@ -163,7 +163,7 @@ def create_player_info(screen):
                      ((1405,
                        325),
                       (25,
-                       25)))
+                       25)),2)
 
 
 
@@ -212,7 +212,7 @@ def create_player_info(screen):
                      ((1205,
                        350),
                       (25,
-                       25)))
+                       25)),2)
 
 
 
@@ -262,7 +262,7 @@ def create_player_info(screen):
                      ((1155,
                        250),
                       (25,
-                       25)))
+                       25)),2)
 
 
 
@@ -312,41 +312,41 @@ def create_player_info(screen):
     
     # PLAYER 2
     pygame.draw.rect(screen,
-                     color,
+                     RED,
                      (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
                        (INFO_MARGIN + INFO_HEIGHT) * 4 + 25),
                       (INFO_WIDTH,
                       INFO_HEIGHT)),2)
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
-    screen.blit(font.render('PLAYER 2', True, WHITE), (1155, 400))
-    screen.blit(font.render('M 1500', True, WHITE), (1350, 400))
+    screen.blit(font.render('PLAYER 2', True, RED), (1155, 400))
+    screen.blit(font.render('M 1500', True, RED), (1350, 400))
 
 
     # PLAYER 3
     pygame.draw.rect(screen,
-                     color,
+                     GREEN,
                      (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
                       (INFO_MARGIN + INFO_HEIGHT) * 5 - INFO_MARGIN + 25),
                       (INFO_WIDTH,
                       INFO_HEIGHT)),2)
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
-    screen.blit(font.render('PLAYER 3', True, WHITE), (1155, 450))
-    screen.blit(font.render('M 1500', True, WHITE), (1350, 450))
+    screen.blit(font.render('PLAYER 3', True, GREEN), (1155, 450))
+    screen.blit(font.render('M 1500', True, GREEN), (1350, 450))
 
 
     # PLAYER 4
     pygame.draw.rect(screen,
-                     color,
+                     YELLOW,
                      (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
                       (INFO_MARGIN + INFO_HEIGHT) * 6 - INFO_MARGIN * 2 + 25),
                       (INFO_WIDTH,
                       INFO_HEIGHT)),2)
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
-    screen.blit(font.render('PLAYER 4', True, WHITE), (1155, 500))
-    screen.blit(font.render('M 1500', True, WHITE), (1350, 500))
+    screen.blit(font.render('PLAYER 4', True, YELLOW), (1155, 500))
+    screen.blit(font.render('M 1500', True, YELLOW), (1350, 500))
 
 
     # BANK
