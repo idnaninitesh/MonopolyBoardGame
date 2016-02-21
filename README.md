@@ -3,7 +3,7 @@ Simulation of popular board game monopoly using Pygame library in Python
 
 Features :
 
-* No of Players between 2-6 with distinct avatar for each player
+* No of Players between 2-4 with distinct name and avatar for each player
 * Screen which displays
     * monopoly board
     * options for roll dice, trade, mortgage, unmortgage
