@@ -99,6 +99,7 @@ def ask_for_player_details(screen,no_of_players):
         
         list_color.remove(player_colors[i])
         
+    return (no_of_players,player_names,player_colors)
     
 
 def ask_for_game_details(screen):
@@ -129,6 +130,6 @@ def ask_for_game_details(screen):
         screen.blit(font.render('Press ENTER To Continue ', True, WHITE),(600,800))
         pygame.display.flip()
 
-    ask_for_player_details(screen,no_of_players)    
-    
+    no_of_players,player_names,player_colors = ask_for_player_details(screen,no_of_players)    
+    return (no_of_players,player_names,player_colors)
 
