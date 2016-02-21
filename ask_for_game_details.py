@@ -5,7 +5,7 @@ from pygame.locals import *
 from variables import *
 
 def get_player_name(screen,index,list_names):
-    screen.fill(BLACK)
+    screen.fill(WHITE)
 
     name = ""
     
@@ -27,11 +27,13 @@ def get_player_name(screen,index,list_names):
                 pygame.quit()
 
 
-        screen.fill((0,0,0))
+        screen.fill(WHITE)
+        manImg = pygame.image.load('man.png')
+        screen.blit(manImg,(600,400))
         font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
-        screen.blit(font.render('Enter name of player {0}'.format(index+1), True, WHITE),(100,100))
-        screen.blit(font.render(name, True, WHITE), (100,200))
-        screen.blit(font.render('Press ENTER To Continue ', True, WHITE),(600,800))
+        screen.blit(font.render('Enter name of player {0}'.format(index+1), True, BLACK),(100,100))
+        screen.blit(font.render(name, True, BLACK), (100,200))
+        screen.blit(font.render('Press ENTER To Continue ', True, BLACK),(600,800))
         pygame.display.flip()
 
     return name
@@ -40,7 +42,7 @@ def get_player_name(screen,index,list_names):
 
 
 def get_player_color(screen,index,list_color,player_names):
-    screen.fill(BLACK)
+    screen.fill(WHITE)
 
     color = ""
     
@@ -62,12 +64,14 @@ def get_player_color(screen,index,list_color,player_names):
                 pygame.quit()
 
 
-        screen.fill((0,0,0))
+        screen.fill(WHITE)
+        manImg = pygame.image.load('man.png')
+        screen.blit(manImg,(600,400))
         font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
-        screen.blit(font.render('Select color for {0}'.format(player_names[index]), True, WHITE),(100,100))
-        screen.blit(font.render('Colors Available : [%s]' % (','.join(list_color)), True, WHITE),(100,140))
-        screen.blit(font.render(color, True, WHITE), (100,200))
-        screen.blit(font.render('Press ENTER To Continue ', True, WHITE),(600,800))
+        screen.blit(font.render('Select color for {0}'.format(player_names[index]), True, BLACK),(100,100))
+        screen.blit(font.render('Colors Available : [%s]' % (','.join(list_color)), True, BLACK),(100,140))
+        screen.blit(font.render(color, True, BLACK), (100,200))
+        screen.blit(font.render('Press ENTER To Continue ', True, BLACK),(600,800))
         pygame.display.flip()
 
     return color
@@ -77,7 +81,7 @@ def get_player_color(screen,index,list_color,player_names):
     
 
 def ask_for_player_details(screen,no_of_players):
-    screen.fill(BLACK)
+    screen.fill(WHITE)
 
     no_of_players = int(no_of_players)
 
@@ -123,11 +127,13 @@ def ask_for_game_details(screen):
                 pygame.quit()
 
 
-        screen.fill((0,0,0))
+        screen.fill(WHITE)
+        manImg = pygame.image.load('man.png')
+        screen.blit(manImg,(600,400))
         font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
-        screen.blit(font.render('Enter no of players (2 - 4)', True, WHITE),(100,100))
-        screen.blit(font.render(no_of_players, True, WHITE), (100,200))
-        screen.blit(font.render('Press ENTER To Continue ', True, WHITE),(600,800))
+        screen.blit(font.render('Enter no of players (2 - 4)', True, BLACK),(100,100))
+        screen.blit(font.render(no_of_players, True, BLACK), (100,200))
+        screen.blit(font.render('Press ENTER To Continue ', True, BLACK),(600,800))
         pygame.display.flip()
 
     no_of_players,player_names,player_colors = ask_for_player_details(screen,no_of_players)    

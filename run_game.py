@@ -189,7 +189,9 @@ def run_game():
     create_player_info(screen,Players,Cards)
     
 
-    
+    manImg = pygame.image.load('man.png')
+    screen.blit(manImg,(400,315))
+
     done = False
 
     clock = pygame.time.Clock()
