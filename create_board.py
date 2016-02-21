@@ -1,3 +1,5 @@
+
+
 import pygame
 import sys
 from pygame.locals import *
@@ -8,7 +10,7 @@ from variables import *
 # creates the board and all the cards inside it
 
 
-def create_board(screen):
+def create_board(screen,player_colors):
 
     if True:
         grid=[]
@@ -17,7 +19,7 @@ def create_board(screen):
             for col in range(BOARD_COLS):
                 grid[row].append(0)
 
-        screen.fill(BLACK)
+        screen.fill(BACKGROUND_COLOR)
 
         # creating the board
         for row in range(BOARD_ROWS):
@@ -60,7 +62,7 @@ def create_board(screen):
         font = pygame.font.SysFont(CARD_TEXT_STYLE, 10)
         screen.blit(font.render('BALTIC', True, BLACK), (708, 720))
         screen.blit(font.render('AVENUE', True, BLACK), (708, 735))
-        screen.blit(font.render('(M 60)', True, BLACK), (708, 755))
+        screen.blit(font.render('(M 80)', True, BLACK), (708, 755))
 
 
         #adding light blue cards
@@ -704,7 +706,8 @@ def create_board(screen):
 
         # BLUE PIECE    (PLAYER 1)
 
-        pygame.draw.circle(screen,
+        if "BLUE" in player_colors:
+            pygame.draw.circle(screen,
                            BLUE,
                            (1020,720),
                            10)
@@ -712,7 +715,8 @@ def create_board(screen):
 
         # RED PIECE     (PLAYER 2)
 
-        pygame.draw.circle(screen,
+        if "RED" in player_colors:
+            pygame.draw.circle(screen,
                            RED,
                            (1060,720),
                            10)
@@ -721,7 +725,8 @@ def create_board(screen):
 
         # GREEN PIECE   (PLAYER 3)
 
-        pygame.draw.circle(screen,
+        if "GREEN" in player_colors:
+            pygame.draw.circle(screen,
                            GREEN,
                            (1020,750),
                            10)
@@ -730,7 +735,8 @@ def create_board(screen):
 
         # YELLOW PIECE  (PLAYER 4)
 
-        pygame.draw.circle(screen,
+        if "YELLOW" in player_colors:
+            pygame.draw.circle(screen,
                            YELLOW,
                            (1060,750),
                            10)
