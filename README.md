@@ -1,6 +1,15 @@
 # monopoly_python
 Simulation of popular board game monopoly using Pygame library in Python
 
+Requirements :
+* Python3
+* Pygame
+
+Standards:
+
+* Add persistent variables in variables.py
+* Indentation : Tabs only please :p
+
 Features :
 
 * No of Players between 2-4 with distinct name and avatar for each player
