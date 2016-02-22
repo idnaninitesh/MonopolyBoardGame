@@ -174,10 +174,23 @@ def run_game():
 
     create_board(screen,player_colors)
 
-    pygame.draw.line(screen, WHITE, (0,BOARD_HEIGHT + OPTION_BOARD_SPACING/2), (SCREEN_WIDTH,BOARD_HEIGHT + OPTION_BOARD_SPACING/2))
-        
-    pygame.draw.line(screen, WHITE, (BOARD_WIDTH + INFO_BOARD_SPACING/2,0), (BOARD_WIDTH + INFO_BOARD_SPACING/2,BOARD_HEIGHT + OPTION_BOARD_SPACING/2))
+    # placing the game pieces at the start position for each player
 
+    for player in Players:
+        
+        if player.color == "BLUE":
+            next_position = (1020,720)
+        elif player.color == "RED":
+            next_position = (1060,720)
+        elif player.color == "GREEN":
+            next_position = (1020,750)
+        elif player.color == "YELLOW":
+            next_position = (1060,750)
+        else:
+            next_position = ()
+
+
+        player.move_player(screen,next_position)
 
     # create game options
 
@@ -186,7 +199,12 @@ def run_game():
 
     # create player info
 
-    create_player_info(screen,Players,Cards)
+    # stores the index of player whose turn it is now
+    
+    cur_player = 0;
+
+   
+    create_player_info(screen,Players,Cards,cur_player)
     
 
     manImg = pygame.image.load('man.png')
