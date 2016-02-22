@@ -1,7 +1,7 @@
 
 
 import pygame
-import sys
+from random import *
 from pygame.locals import *
 
 from variables import *
@@ -12,7 +12,7 @@ from variables import *
 
 def create_board(screen,player_colors):
 
-    if True:
+    if True:            # because I'm too lazy to indent all the lines below ;)
         grid=[]
         for row in range(BOARD_ROWS):
             grid.append([])
@@ -34,11 +34,19 @@ def create_board(screen,player_colors):
                                       CARD_HEIGHT])
 
 
+        # horizontal and vertical margin
+
         pygame.draw.line(screen, WHITE, (0,BOARD_HEIGHT + OPTION_BOARD_SPACING/2), (SCREEN_WIDTH,BOARD_HEIGHT + OPTION_BOARD_SPACING/2))
         
         pygame.draw.line(screen, WHITE, (BOARD_WIDTH + INFO_BOARD_SPACING/2,0), (BOARD_WIDTH + INFO_BOARD_SPACING/2,BOARD_HEIGHT + OPTION_BOARD_SPACING/2))
 
 
+        # Monopoly man image
+        
+        manImg = pygame.image.load('man.png')
+        screen.blit(manImg,(400,320))
+
+    
         #adding brown cards
 
         color = BROWN
@@ -701,81 +709,175 @@ def create_board(screen,player_colors):
         screen.blit(text, (825, 10))
 
 
+ 
+# Rolls dice and places them at random positions
+# Generates random number between 1 and 6 for each die
+# DICE
+# dice 1 boundary ( 150 <= x <= 500  80 <= y <= 280 )
+# dice 2 boundart ( 550 <= x <= 900  80 <= y <= 280 )
+# dice width = dice height = 35
+# spot radius = 5
 
-        # DICE
-        # dice 1 boundary ( 650 <= x <= 800  250 <= y <= 350 )
-        # dice 2 boundart ( 400 <= x <= 600  350 <= y <= 500 )
-        # dice width = dice height = 35
-        # spot radius = 5
 
-        
+
+def roll_dice(screen,no1=0,no2=0):
+
+    if True:            # because I'm too lazy to indent all the lines below ;)
+
+        dice1_x = randint(150,500)
+        dice1_y = randint(80,280)
+
+        # draw dice 1 
         
         pygame.draw.rect(screen,
                          WHITE,
-                         ((700,300),
-                         (35,35)))
+                         ((dice1_x,dice1_y),
+                         (DICE_WIDTH,DICE_HEIGHT)))
 
-        # no = 4
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (707,307),
-                           5)
+        # draw spots for dice 1
 
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (727,307),
-                           5)
+        if no1 == 0:
+            no1 = randint(1,6)
 
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (707,327),
-                           5)
-
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (727,327),
-                           5)
-
-
+        # for odd no draw a spot in center of dice
         
+        if no1 % 2 == 1:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 17,dice1_y + 17),
+                               DICE_SPOT_RADIUS)
 
+        # 1 - center 
+        # 2 - left-top right-bottom
+        # 3 - left-top right-bottom center
+        # 4 - left-top right-top left-bottom right-bottom
+        # 5 - left-top right-top left-bottom right-bottom center
+        # 6 - left-top right-top left-bottom right-bottom middle-top middle-bottom
+
+        # for 2 to 6 draw left-top and right-bottom
+        
+        if no1 >= 2 and no1 <= 6:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 7,dice1_y + 7),
+                               DICE_SPOT_RADIUS)
+
+
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 27,dice1_y + 27),
+                               DICE_SPOT_RADIUS)
+
+
+        # for 4 to 6 draw left-bottom and right-top
+
+        if no1 >= 4 and no1 <= 6:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 7,dice1_y + 27),
+                               DICE_SPOT_RADIUS)
+
+
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 27,dice1_y + 7),
+                               DICE_SPOT_RADIUS)
+            
+
+
+        # for 6 draw middle-top and middle-bottom
+        
+        if no1 == 6:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 17,dice1_y + 7),
+                               DICE_SPOT_RADIUS)
+
+
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice1_x + 17,dice1_y + 27),
+                               DICE_SPOT_RADIUS)
+
+
+
+
+
+    if True:            # because I'm too lazy to indent all the lines below ;)
+
+        dice2_x = randint(550,900)
+        dice2_y = randint(80,280)
+
+        # draw dice 2 
+        
         pygame.draw.rect(screen,
                          WHITE,
-                         ((600,350),
-                         (35,35)))
+                         ((dice2_x,dice2_y),
+                         (DICE_WIDTH,DICE_HEIGHT)))
 
+        # draw spots for dice 1
 
-        # no = 5
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (607,357),
-                           5)
+        if no2 == 0:
+            no2 = randint(1,6)
 
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (627,357),
-                           5)
-
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (617,367),
-                           5)
-
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (607,377),
-                           5)
-
-        pygame.draw.circle(screen,
-                           BLACK,
-                           (627,377),
-                           5)
-
-
-
-
+        # for odd no draw a spot in center of dice
         
+        if no2 % 2 == 1:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 17,dice2_y + 17),
+                               DICE_SPOT_RADIUS)
 
+        # 1 - center 
+        # 2 - left-top right-bottom
+        # 3 - left-top right-bottom center
+        # 4 - left-top right-top left-bottom right-bottom
+        # 5 - left-top right-top left-bottom right-bottom center
+        # 6 - left-top right-top left-bottom right-bottom middle-top middle-bottom
 
-
+        # for 2 to 6 draw left-top and right-bottom
         
+        if no2 >= 2 and no2 <= 6:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 7,dice2_y + 7),
+                               DICE_SPOT_RADIUS)
+
+
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 27,dice2_y + 27),
+                               DICE_SPOT_RADIUS)
+
+
+        # for 4 to 6 draw left-bottom and right-top
+
+        if no2 >= 4 and no2 <= 6:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 7,dice2_y + 27),
+                               DICE_SPOT_RADIUS)
+
+
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 27,dice2_y + 7),
+                               DICE_SPOT_RADIUS)
+            
+
+
+        # for 6 draw middle-top and middle-bottom
+        
+        if no2 == 6:
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 17,dice2_y + 7),
+                               DICE_SPOT_RADIUS)
+
+
+            pygame.draw.circle(screen,
+                               BLACK,
+                               (dice2_x + 17,dice2_y + 27),
+                               DICE_SPOT_RADIUS)
+
+
