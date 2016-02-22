@@ -174,6 +174,9 @@ def run_game():
 
     create_board(screen,player_colors)
 
+    # rolls dice and places them at random position with 4 and 2 number in 1st and 2nd die respectively
+    roll_dice(screen,4,2)           # Since 42 is the answer to everything :)
+
     # placing the game pieces at the start position for each player
 
     for player in Players:
@@ -206,9 +209,6 @@ def run_game():
    
     create_player_info(screen,Players,Cards,cur_player)
     
-
-    manImg = pygame.image.load('man.png')
-    screen.blit(manImg,(400,315))
 
     done = False
 
