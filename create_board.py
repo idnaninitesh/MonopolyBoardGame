@@ -33,6 +33,12 @@ def create_board(screen,player_colors):
                                       CARD_WIDTH,
                                       CARD_HEIGHT])
 
+
+        pygame.draw.line(screen, WHITE, (0,BOARD_HEIGHT + OPTION_BOARD_SPACING/2), (SCREEN_WIDTH,BOARD_HEIGHT + OPTION_BOARD_SPACING/2))
+        
+        pygame.draw.line(screen, WHITE, (BOARD_WIDTH + INFO_BOARD_SPACING/2,0), (BOARD_WIDTH + INFO_BOARD_SPACING/2,BOARD_HEIGHT + OPTION_BOARD_SPACING/2))
+
+
         #adding brown cards
 
         color = BROWN
@@ -693,53 +699,6 @@ def create_board(screen,player_colors):
         text = font.render('(M 150)', True, BLACK)
         text = pygame.transform.rotate(text, 180)
         screen.blit(text, (825, 10))
-
-
-
-        #adding dice and pieces(blue,red,green,yellow
-        # x = x coordinate of the card
-        # y = y coordinate of the card
-        # blue position   = x + 20, y + 20
-        # red position    = x + 60, y + 20
-        # green position  = x + 20, y + 50
-        # yellow position = x + 60, y + 50
-
-        # BLUE PIECE    (PLAYER 1)
-
-        if "BLUE" in player_colors:
-            pygame.draw.circle(screen,
-                           BLUE,
-                           (1020,720),
-                           10)
-
-
-        # RED PIECE     (PLAYER 2)
-
-        if "RED" in player_colors:
-            pygame.draw.circle(screen,
-                           RED,
-                           (1060,720),
-                           10)
-
-
-
-        # GREEN PIECE   (PLAYER 3)
-
-        if "GREEN" in player_colors:
-            pygame.draw.circle(screen,
-                           GREEN,
-                           (1020,750),
-                           10)
-
-
-
-        # YELLOW PIECE  (PLAYER 4)
-
-        if "YELLOW" in player_colors:
-            pygame.draw.circle(screen,
-                           YELLOW,
-                           (1060,750),
-                           10)
 
 
 
