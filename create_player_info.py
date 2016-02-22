@@ -10,13 +10,13 @@ from Card import *
 # creates the player information box which shows the property owned by the player
 
 
-def create_player_info(screen,Players,Cards):
+def create_player_info(screen,Players,Cards,cur_player):
 
     # create cards
 
     color = WHITE
 
-    player = Players[0]
+    player = Players[cur_player]
 
     if player.color == "RED":
         color = RED
@@ -356,8 +356,41 @@ def create_player_info(screen,Players,Cards):
     name_x = 1155
     amt_x = 1350
     y = 400
+
+    if cur_player != len(Players)-1:
+        
+        for player in Players[cur_player+1:]:
+            if player.color == "RED":
+                color = RED
+            elif player.color == "GREEN":
+                color = GREEN
+            elif player.color == "BLUE":
+                color = BLUE
+            elif player.color == "YELLOW":
+                color = YELLOW
+            else:
+                color = WHITE
+
+            pygame.draw.rect(screen,
+                         color,
+                         (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
+                           (INFO_MARGIN + INFO_HEIGHT) * j - INFO_MARGIN * k + 25),
+                          (INFO_WIDTH,
+                          INFO_HEIGHT)),2)
+            
+
+            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+            screen.blit(font.render('' + player.name, True, color), (name_x, y))
+            screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
     
-    for player in Players[1:]:
+            j = j + 1
+            k = k + 1
+            y = y + 50
+
+
+
+    for player in Players[0:cur_player]:
+        
         if player.color == "RED":
             color = RED
         elif player.color == "GREEN":
@@ -370,20 +403,21 @@ def create_player_info(screen,Players,Cards):
             color = WHITE
 
         pygame.draw.rect(screen,
-                     color,
-                     (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
-                       (INFO_MARGIN + INFO_HEIGHT) * j - INFO_MARGIN * k + 25),
-                      (INFO_WIDTH,
-                      INFO_HEIGHT)),2)
-        
+                         color,
+                         (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
+                           (INFO_MARGIN + INFO_HEIGHT) * j - INFO_MARGIN * k + 25),
+                          (INFO_WIDTH,
+                           INFO_HEIGHT)),2)
+            
 
         font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
         screen.blit(font.render('' + player.name, True, color), (name_x, y))
         screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
-
+    
         j = j + 1
         k = k + 1
         y = y + 50
+
 
         
 
