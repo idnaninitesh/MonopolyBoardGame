@@ -10,7 +10,7 @@ from Card import *
 # creates the player information box which shows the property owned by the player
 
 
-def create_player_info(screen,Players,Cards,cur_player):
+def create_player_info(screen,Players,Cards,cur_player,dist_y = 100,dist_x = 1155):
 
     # create cards
 
@@ -50,274 +50,274 @@ def create_player_info(screen,Players,Cards,cur_player):
                       (INFO_WIDTH,
                       (INFO_HEIGHT + INFO_MARGIN) * 3 + 25)),2)
 
+     
     # KENTUCKY AVENUE
     pygame.draw.rect(screen,
                      RED,
-                     ((1180,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 1,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     # INDIANA AVENUE
     pygame.draw.rect(screen,
                      RED,
-                     ((1230,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 3,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
     
     #   ILLINOIS AVENUE
     pygame.draw.rect(screen,
                      RED,
-                     ((1255,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 4,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   B. & O. RAILROAD
     pygame.draw.rect(screen,
                      BLACK,
-                     ((1280,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 5,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   ATLANTIC AVENUE
     pygame.draw.rect(screen,
                      YELLOW,
-                     ((1305,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 6,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   VENTORA AVENUE
     pygame.draw.rect(screen,
                      YELLOW,
-                     ((1330,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 7,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   WATER WORKS
     pygame.draw.rect(screen,
                      WHITE,
-                     ((1355,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 8,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   MARVIN GARDENS
     pygame.draw.rect(screen,
                      YELLOW,
-                     ((1380,
-                       100),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 9,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   PACIFIC AVENUE
     pygame.draw.rect(screen,
                      GREEN,
-                     ((1405,
-                       125),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 1),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   CAROLINA AVENUE
     pygame.draw.rect(screen,
                      GREEN,
-                     ((1405,
-                       150),
-                      (25,
-                       25)),2)
-
+                     ((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 2),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   PENNSYLVANIA AVENUE
     pygame.draw.rect(screen,
                      GREEN,
-                     ((1405,
-                       200),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 4),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
-    #   SHORT LINE
+    #   SHORT LINE                      
     pygame.draw.rect(screen,
                      BLACK,
-                     ((1405,
-                       225),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 5),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   PARK PLACE
     pygame.draw.rect(screen,
                      BLUE,
-                     ((1405,
-                       275),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 7),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   BROADWALK
     pygame.draw.rect(screen,
                      BLUE,
-                     ((1405,
-                       325),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 9),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   MEDITERRANEAN AVENUE
     pygame.draw.rect(screen,
                      BROWN,
-                     ((1380,
-                       350),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 9,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   BALTIC AVENUE
     pygame.draw.rect(screen,
                      BROWN,
-                     ((1330,
-                       350),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 7,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   READING RAILROAD
     pygame.draw.rect(screen,
                      BLACK,
-                     ((1280,
-                       350),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 5,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   ORIENTAL AVENUE
     pygame.draw.rect(screen,
                      LIGHT_BLUE,
-                     ((1255,
-                       350),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 4,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   VERMONT AVENUE
     pygame.draw.rect(screen,
                      LIGHT_BLUE,
-                     ((1205,
-                       350),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 2,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   CONNECTICUT AVENUE
     pygame.draw.rect(screen,
                      LIGHT_BLUE,
-                     ((1180,
-                       350),
-                      (25,
-                       25)),2)
+                     ((dist_x + INFO_CARD_WIDTH * 1,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   ST. CHARLES PLACE
     pygame.draw.rect(screen,
                      PINK,
-                     ((1155,
-                       325),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 9),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   ELECTRIC COMPANY
     pygame.draw.rect(screen,
                      WHITE,
-                     ((1155,
-                       300),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 8),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   STATES AVENUE
     pygame.draw.rect(screen,
                      PINK,
-                     ((1155,
-                       275),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 7),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   VIRGINIA AVENUE
     pygame.draw.rect(screen,
                      PINK,
-                     ((1155,
-                       250),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 6),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   PENNSYLVANIA RAILROAD
     pygame.draw.rect(screen,
                      BLACK,
-                     ((1155,
-                       225),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 5),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   ST. JAMES PLACE
     pygame.draw.rect(screen,
                      ORANGE,
-                     ((1155,
-                       200),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 4),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   TENNESSEE AVENUE
     pygame.draw.rect(screen,
                      ORANGE,
-                     ((1155,
-                       150),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 2),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
 
     #   NEW YORK AVENUE
     pygame.draw.rect(screen,
                      ORANGE,
-                     ((1155,
-                       125),
-                      (25,
-                       25)),2)
+                     ((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 1),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT)),2)
 
 
     #   UPDATING PLAYER PROPERTY
@@ -347,8 +347,8 @@ def create_player_info(screen,Players,Cards,cur_player):
         pygame.draw.rect(screen,
                          color,
                          (Cards[player_property].info_pos,
-                          (25,
-                           25)))
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
 
 
     j = 4
@@ -357,7 +357,7 @@ def create_player_info(screen,Players,Cards,cur_player):
     amt_x = 1350
     y = 400
 
-    if cur_player != len(Players)-1:
+    if cur_player != len(Players) - 1:
         
         for player in Players[cur_player+1:]:
             if player.color == "RED":
@@ -370,7 +370,7 @@ def create_player_info(screen,Players,Cards,cur_player):
                 color = YELLOW
             else:
                 color = WHITE
-
+    
             pygame.draw.rect(screen,
                          color,
                          (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
@@ -378,7 +378,7 @@ def create_player_info(screen,Players,Cards,cur_player):
                           (INFO_WIDTH,
                           INFO_HEIGHT)),2)
             
-
+    
             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
             screen.blit(font.render('' + player.name, True, color), (name_x, y))
             screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
@@ -388,36 +388,286 @@ def create_player_info(screen,Players,Cards,cur_player):
             y = y + 50
 
 
+    if cur_player != 0:
 
-    for player in Players[0:cur_player]:
-        
-        if player.color == "RED":
-            color = RED
-        elif player.color == "GREEN":
-            color = GREEN
-        elif player.color == "BLUE":
-            color = BLUE
-        elif player.color == "YELLOW":
-            color = YELLOW
-        else:
-            color = WHITE
-
-        pygame.draw.rect(screen,
+        for player in Players[:cur_player]:
+            if player.color == "RED":
+                color = RED
+            elif player.color == "GREEN":
+                color = GREEN
+            elif player.color == "BLUE":
+                color = BLUE
+            elif player.color == "YELLOW":
+                color = YELLOW
+            else:
+                color = WHITE
+    
+            pygame.draw.rect(screen,
                          color,
                          (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
                            (INFO_MARGIN + INFO_HEIGHT) * j - INFO_MARGIN * k + 25),
                           (INFO_WIDTH,
-                           INFO_HEIGHT)),2)
+                          INFO_HEIGHT)),2)
             
-
-        font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
-        screen.blit(font.render('' + player.name, True, color), (name_x, y))
-        screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
     
-        j = j + 1
-        k = k + 1
-        y = y + 50
-
+            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+            screen.blit(font.render('' + player.name, True, color), (name_x, y))
+            screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
+    
+            j = j + 1
+            k = k + 1
+            y = y + 50
 
         
+    
+    
 
+# creating info card rectangles for handling events on them
+
+def create_info_rects(dist_x = 1155,dist_y = 100):
+    Info_Cards_Rects = []
+
+    # KENTUCKY AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 1,
+                       dist_y),
+                      (INFO_CARD_WIDTH,
+                       INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    # INDIANA AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 3,
+                      dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+    
+    #   ILLINOIS AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 4,
+                      dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   B. & O. RAILROAD
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 5,
+                      dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   ATLANTIC AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 6,
+                       dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   VENTORA AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 7,
+                       dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   WATER WORKS
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 8,
+                       dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   MARVIN GARDENS
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 9,
+                       dist_y),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   PACIFIC AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 1),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   CAROLINA AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 2),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   PENNSYLVANIA AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 10,
+                        dist_y + INFO_CARD_HEIGHT * 4),
+                       (INFO_CARD_WIDTH,
+                        INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   SHORT LINE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 5),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   PARK PLACE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 7),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   BROADWALK
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 10,
+                       dist_y + INFO_CARD_HEIGHT * 9),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   MEDITERRANEAN AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 9,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    #   BALTIC AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 7,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   READING RAILROAD
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 5,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   ORIENTAL AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 4,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   VERMONT AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 2,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   CONNECTICUT AVENUE
+    rect = pygame.Rect((dist_x + INFO_CARD_WIDTH * 1,
+                       dist_y + INFO_CARD_HEIGHT * 10),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   ST. CHARLES PLACE
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 9),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   ELECTRIC COMPANY
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 8),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   STATES AVENUE
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 7),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   VIRGINIA AVENUE
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 6),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   PENNSYLVANIA RAILROAD
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 5),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   ST. JAMES PLACE
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 4),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   TENNESSEE AVENUE
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 2),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+
+    #   NEW YORK AVENUE
+    rect = pygame.Rect((dist_x,
+                       dist_y + INFO_CARD_HEIGHT * 1),
+                     (INFO_CARD_WIDTH,
+                      INFO_CARD_HEIGHT))
+    Info_Cards_Rects.append(rect)
+
+
+    return Info_Cards_Rects
+    
