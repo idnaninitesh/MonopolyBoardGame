@@ -30,3 +30,4 @@ Future Scope (If time permits) :
 * Display the property details(cost, mortgage value, rent etc.) of the card when it is being focused
 * History Box to display the progress of game with timestamp
 * Save game feature
+* Store the trade offer in the player object to resolve them later
