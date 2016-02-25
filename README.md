@@ -32,3 +32,4 @@ Future Scope (If time permits) :
 * Save game feature
 * Store the trade offer in the player object to resolve them later
 * Option to view other players' details
+* Add transitional animations
