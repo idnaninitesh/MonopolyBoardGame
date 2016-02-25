@@ -1,6 +1,3 @@
-# Next task : create screen for various play options
-
-
 import pygame
 import sys
 from pygame.locals import *
@@ -10,6 +7,8 @@ from ask_for_game_details import *
 from create_board import *
 from create_game_options import *
 from create_player_info import *
+from handle_mouse_event import *
+from execute_action import *
 from Player import *
 from Card import *
 
@@ -45,7 +44,7 @@ def run_game():
 
     # create initial board
 
-    create_board(screen,player_colors)
+    create_board(screen)
 
     # rolls dice and places them at random position with 4 and 2 number in 1st and 2nd die respectively
     roll_dice(screen,4,2)           # Since 42 is the answer to everything :)
@@ -99,6 +98,8 @@ def run_game():
 
     clock = pygame.time.Clock()
 
+    isRunning = False
+
 
     #--------------MAIN GAME LOOP------------------
     while not done:
@@ -120,12 +121,29 @@ def run_game():
                 
                 mouse_pos = pygame.mouse.get_pos()
                 print(mouse_pos)
-                #col = pos[0] // (CARD_WIDTH + CARD_MARGIN)
-                #row = pos[1] // (CARD_HEIGHT + CARD_MARGIN)
 
                 # handle inputs
 
-                #rect_index = get_rect_pressed(mouse_pos)
+                Rects = get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects)
+                rect_index = get_rect_pressed_index(mouse_pos,Rects)
+                print(rect_index)
+
+                # take necessary action based on the event that occured in the game
+                # kind of semaphore I think ;)
+                
+                if isRunning == False:
+                    isRunning = True
+                    cur_player,isRunning = execute_action(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
+
+                # update the state of the game after every turn
+                # 1. Current Player
+                # 2. Property of each player
+                # 3. Balance of each player
+                # 4. Position
+                # 5. Other Player Attributes
+                # 6. Status of each card
+                # 7. Houses and hotels details associated with each card
+                
 
         ####
 
@@ -166,44 +184,3 @@ while 1:
 cleanup()
 """
 
-
-"""
-
-----------------PYGAME FLOW-------------------
-
-import pygame
-
-def main():
-    #Set up the game and run the main game loop
-    pygame.init()      # Prepare the pygame module for use
-    surface_sz = 480   # Desired physical surface size, in pixels.
-
-    # Create surface of (width, height), and its window.
-    main_surface = pygame.display.set_mode((surface_sz, surface_sz))
-
-    # Set up some data to describe a small rectangle and its color
-    small_rect = (300, 200, 150, 90)
-    some_color = (255, 0, 0)        # A color is a mix of (Red, Green, Blue)
-
-    while True:
-        ev = pygame.event.poll()    # Look for any event
-        if ev.type == pygame.QUIT:  # Window close button clicked?
-            break                   #   ... leave game loop
-
-        # Update your game objects and data structures here...
-
-        # We draw everything from scratch on each frame.
-        # So first fill everything with the background color
-        main_surface.fill((0, 200, 255))
-
-        # Overpaint a smaller rectangle on the main surface
-        main_surface.fill(some_color, small_rect)
-
-        # Now the surface is ready, tell pygame to display it!
-        pygame.display.flip()
-
-    pygame.quit()     # Once we leave the loop, close the window.
-
-main()
-
-"""
