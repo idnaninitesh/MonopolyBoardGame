@@ -56,6 +56,8 @@ class Player:
                                next_position,
                                PIECE_RADIUS)
 
+        self.cur_position = next_position
+
 
             
     
