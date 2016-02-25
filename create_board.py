@@ -12,7 +12,7 @@ from Card import *
 # creates the board and all the cards inside it
 
 
-def create_board(screen,player_colors):
+def create_board(screen):
 
     if True:            # because I'm too lazy to indent all the lines below ;)
         grid=[]
@@ -820,7 +820,10 @@ def roll_dice(screen,no1=0,no2=0):
         # draw spots for dice 1
 
         if no2 == 0:
-            no2 = randint(1,6)
+            if no1 >3:
+                no2 = randint(1,3)
+            else:
+                no2 = randint(1,6)
 
         # for odd no draw a spot in center of dice
         
@@ -882,6 +885,7 @@ def roll_dice(screen,no1=0,no2=0):
                                (dice2_x + 17,dice2_y + 27),
                                DICE_SPOT_RADIUS)
 
+    return no1 + no2
 
 
 # creating the cards
