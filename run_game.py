@@ -1,4 +1,5 @@
 import pygame
+import pygame.gfxdraw
 import sys
 from pygame.locals import *
 
@@ -94,10 +95,9 @@ def run_game():
     
     # START GAME PROMPT
 
-    pygame.draw.rect(screen,
-                     LIGHT_BLUE,
-                     ((320,210),
-                     (440,340)),5)
+    pygame.gfxdraw.box(screen,
+                       ((320,210),
+                        (440,340)),(202,202,225,127))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
     screen.blit(font.render('START GAME',True,BLACK),(450,270))
