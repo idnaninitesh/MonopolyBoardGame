@@ -20,7 +20,6 @@ def get_player_name(screen,index,list_names):
                 elif evt.key == K_BACKSPACE:
                     name = name[:-1]
                 elif evt.key == K_RETURN:
-                    print(name)
                     if name.isalpha() and len(name) <= 10 and not name in list_names:
                         name_done = True
             elif evt.type == QUIT:
@@ -58,7 +57,6 @@ def get_player_color(screen,index,list_color,player_names):
                 elif evt.key == K_BACKSPACE:
                     color = color[:-1]
                 elif evt.key == K_RETURN:
-                    print(color)
                     if color.isalpha() and color.upper() in list_color:
                         color_done = True
             elif evt.type == QUIT:
@@ -122,7 +120,6 @@ def ask_for_game_details(screen):
                 elif evt.key == K_BACKSPACE:
                     no_of_players = "0"
                 elif evt.key == K_RETURN:
-                    print(no_of_players)
                     if no_of_players >= "2" and no_of_players <= "4":
                         no_done = True
             elif evt.type == QUIT:
@@ -139,6 +136,7 @@ def ask_for_game_details(screen):
         screen.blit(font.render('Press ENTER To Continue ', True, BLACK),(600,800))
         pygame.display.flip()
 
+    #pygame.event.clear()
     no_of_players,player_names,player_colors = ask_for_player_details(screen,no_of_players)    
     return (no_of_players,player_names,player_colors)
 
