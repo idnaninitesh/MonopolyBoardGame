@@ -886,7 +886,7 @@ def roll_dice(screen,no1=0,no2=0):
                                (dice2_x + 17,dice2_y + 27),
                                DICE_SPOT_RADIUS)
 
-    return no1 + no2
+    return no1,no2
 
 
 # creating the cards
