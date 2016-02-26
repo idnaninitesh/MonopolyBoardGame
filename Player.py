@@ -16,8 +16,9 @@ class Player:
         self.property_owned = []
         self.property_mortgaged = []
         total_rails_owned = 0
-        total_utilities_owned = 0,
+        total_utilities_owned = 0
         self.jail_card = False
+        isBankrupt = False
 
 
 
