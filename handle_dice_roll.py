@@ -7,9 +7,12 @@ from create_board import *
 from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
+from update_game_dice import *
 from Player import *
 
 
+
+# roll dice and take action based on the new position of the current player
 
 def handle_dice_roll(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects):
 
@@ -30,7 +33,8 @@ def handle_dice_roll(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rect
 
             # rolling dice
             
-            steps = roll_dice(screen)
+            no1,no2 = roll_dice(screen)
+            steps = no1 + no2
  
             player = Players[cur_player]
 
@@ -64,9 +68,39 @@ def handle_dice_roll(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rect
 
 
             # add the necessary actions to be taken due to dice roll
-            # update_game_dice()
-                
+            #final_card = update_game_dice(initial_card,final_card,no1,no2,Players,Cards,cur_player)
 
+            # changing the position if there is some related instruction in chance or community card 
+
+            
+            """
+
+            final_pos = Cards[final_card].board_pos
+            next_position = ()
+
+            if player.color == "BLUE":
+                next_position = (final_pos[0] + 19,final_pos[1] + 19)
+            elif player.color == "RED":
+                next_position = (final_pos[0] + 59,final_pos[1] + 19)
+            elif player.color == "GREEN":
+                next_position = (final_pos[0] + 19,final_pos[1] + 49)
+            elif player.color == "YELLOW":
+                next_position = (final_pos[0] + 59,final_pos[1] + 49)
+            else:
+                next_position = ()
+
+            player.cur_position = next_position
+
+            screen.fill(BACKGROUND_COLOR)
+
+            create_board(screen)
+
+            create_game_options(screen)
+            
+            for player in Players:
+                player.move_player(screen,player.cur_position)
+
+            """
             cur_player = (cur_player+1)%len(Players)
 
             create_player_info(screen,Players,Cards,cur_player)
