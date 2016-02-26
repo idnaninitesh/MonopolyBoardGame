@@ -8,7 +8,7 @@ from create_board import *
 from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
-from execute_action import *
+from handle_game import *
 from Player import *
 from Card import *
 
@@ -51,8 +51,6 @@ def run_game():
 
     Cards,Cards_Rects = create_card_rects()
 
-    print(len(Cards_Rects))
-
     # placing the game pieces at the start position for each player
 
     for player in Players:
@@ -77,24 +75,106 @@ def run_game():
 
     Option_Rects = create_option_rects()
 
-    print(len(Option_Rects))
 
     # create player info
 
     # stores the index of player whose turn it is now
     
-    cur_player = 1;
+    cur_player = 0;
 
    
     create_player_info(screen,Players,Cards,cur_player)
 
     Info_Cards_Rects = create_info_rects()
 
-    print(len(Info_Cards_Rects))
+        
+
+    pygame.event.clear()
+
     
-    
+    # START GAME PROMPT
+
+    pygame.draw.rect(screen,
+                     LIGHT_BLUE,
+                     ((320,210),
+                     (440,340)),5)
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
+    screen.blit(font.render('START GAME',True,BLACK),(450,270))
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((320 + OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
+    screen.blit(font.render('START',True,WHITE),(370,485))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
+    screen.blit(font.render('QUIT',True,WHITE),(630,485))
+
+
+    clock = pygame.time.Clock()
 
     done = False
+    start = False
+
+    # Start Prompt
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                done = True
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # start clicked
+
+                if x >= 360 and x <= 490 and y >= 480 and y <= 520:
+                    done = False
+                    start = True
+    
+                    # adding all the static items
+                    
+                    screen.fill(BACKGROUND_COLOR)
+    
+                    create_board(screen)
+        
+                    create_game_options(screen)
+
+                    create_player_info(screen,Players,Cards,cur_player)
+
+                    roll_dice(screen,4,2)
+
+                    for player in Players:
+                        player.move_player(screen,player.cur_position)
+    
+                # quit clicked
+
+                if x >= 600 and x <= 730 and y >= 480 and y <= 520:
+                    done = True
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
 
     clock = pygame.time.Clock()
 
@@ -105,6 +185,7 @@ def run_game():
     while not done:
         
         for event in pygame.event.get():
+            
             """
                 check_inputs()    #get key/mouse input inputs for this frame
                 handle_inputs()    #handle each input that has occurred during this frame
@@ -120,20 +201,18 @@ def run_game():
                 # check inputs
                 
                 mouse_pos = pygame.mouse.get_pos()
-                print(mouse_pos)
 
                 # handle inputs
 
                 Rects = get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects)
                 rect_index = get_rect_pressed_index(mouse_pos,Rects)
-                print(rect_index)
 
                 # take necessary action based on the event that occured in the game
                 # kind of semaphore I think ;)
                 
                 if isRunning == False:
                     isRunning = True
-                    cur_player,isRunning = execute_action(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
+                    cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
 
                 # update the state of the game after every turn
                 # 1. Current Player
