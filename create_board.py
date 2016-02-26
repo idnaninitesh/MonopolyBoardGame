@@ -34,6 +34,7 @@ def create_board(screen):
                                       (CARD_MARGIN + CARD_HEIGHT) * row + CARD_MARGIN,
                                       CARD_WIDTH,
                                       CARD_HEIGHT])
+        
 
 
         # horizontal and vertical margin
@@ -46,7 +47,7 @@ def create_board(screen):
         # Monopoly man image
         
         manImg = pygame.image.load('man.png')
-        screen.blit(manImg,(400,320))
+        screen.blit(manImg,(350,320))
 
     
         #adding brown cards
