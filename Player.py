@@ -15,10 +15,10 @@ class Player:
         self.cur_position = ()
         self.property_owned = []
         self.property_mortgaged = []
-        total_rails_owned = 0
-        total_utilities_owned = 0
+        self.total_rails_owned = 0
+        self.total_utilities_owned = 0
         self.jail_card = False
-        isBankrupt = False
+        self.isBankrupt = False
 
 
 
