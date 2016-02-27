@@ -33,3 +33,4 @@ Future Scope (If time permits) :
 * Store the trade offer in the player object to resolve them later
 * Option to view other players' details
 * Add transitional animations
+* Impement auction of property
