@@ -3,7 +3,7 @@
 * Board and player info will be updated after each turn and game options will be not
 
 
-1. Select dice roll window
+1. Select roll dice
 2. Handle dice roll actions
 3. Show end turn window
 4. If user clicks on end turn update game and change player
