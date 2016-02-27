@@ -1,7 +1,7 @@
 class Card:
 
     #add a card
-    def __init__(self,id_no,name,color,cost,rent,mortgage_value,house_cost,hotel_cost,house_rent,hotel_rent,board_pos,info_pos,status = 0,houses_built = 0,hotel_built = 0):
+    def __init__(self,id_no,name,color,cost,rent,mortgage_value,house_cost,hotel_cost,house_rent,hotel_rent,board_pos,info_pos):
         self.id_no = id_no
         self.name = name
         self.color = color
@@ -14,6 +14,9 @@ class Card:
         self.hotel_rent = hotel_rent
         self.board_pos = board_pos
         self.info_pos = info_pos
+        self.status = 0
+        self.houses_built = 0
+        self.hotel_built = 0
 
 
 
