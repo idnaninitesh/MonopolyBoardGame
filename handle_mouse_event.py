@@ -13,6 +13,8 @@ def get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects):
     x = mouse_pos[0]
     y = mouse_pos[1]
 
+    Rects = None
+
     # match x and y against the boundaries of each card list
     
     if x >= Option_Rects[0].x and x <= (Option_Rects[-1].x + Option_Rects[-1].width):
