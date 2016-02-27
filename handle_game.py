@@ -1,3 +1,7 @@
+# implement other game options
+
+
+
 import pygame
 import sys
 from pygame.locals import *
@@ -31,16 +35,24 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
 
         if rect_index == 0:
             
-            status,cur_player = handle_dice_roll(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
-
-            # unlocking the game loop
-
-            if status == True:
-                isRunning = False
-
-            return cur_player,isRunning
+            cur_player = handle_dice_roll(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
 
         elif rect_index == 1:
+            
+            screen.fill(BACKGROUND_COLOR)
+
+            create_board(screen)
+
+            create_game_options(screen)
+
+            create_player_info(screen,Players,Cards,cur_player)
+         
+            for player in Players:
+                player.move_player(screen,player.cur_position)
+
+
+            display_end_turn_window(screen,Players,Card,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+            
             print("1;)")
             # build house/hotel
         elif rect_index == 2:
@@ -60,11 +72,13 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
             # rules
         elif rect_index == 7:
             pygame.quit()
-            #print("7;)")
             # quit game
-            
 
-        
+
+        # unlocking the game loop
+        isRunning = False
+
+        return cur_player,isRunning
 
         
         
