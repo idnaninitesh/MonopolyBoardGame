@@ -1,3 +1,4 @@
+
 import pygame
 import pygame.gfxdraw
 import sys
@@ -89,92 +90,9 @@ def run_game():
     Info_Cards_Rects = create_info_rects()
 
         
-
-    pygame.event.clear()
-
-    
     # START GAME PROMPT
 
-    pygame.gfxdraw.box(screen,
-                       ((320,210),
-                        (440,340)),(202,202,225,127))
-
-    font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
-    screen.blit(font.render('START GAME',True,BLACK),(450,270))
-
-    pygame.draw.rect(screen,
-                     BLUE,
-                     ((320 + OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
-                      (OPTION_WIDTH,OPTION_HEIGHT)))
-
-    font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
-    screen.blit(font.render('START',True,WHITE),(370,485))
-
-
-    pygame.draw.rect(screen,
-                     RED,
-                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
-                      (OPTION_WIDTH,OPTION_HEIGHT)))
-
-    font = pygame.font.SysFont(CARD_TEXT_STYLE, 30)
-    screen.blit(font.render('QUIT',True,WHITE),(630,485))
-
-
-    clock = pygame.time.Clock()
-
-    done = False
-    start = False
-
-    # Start Prompt
-
-    while not start:
-        
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-                done = True
-                start = True
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                
-                mouse_pos = pygame.mouse.get_pos()
-
-                x = mouse_pos[0]
-                y = mouse_pos[1]
-
-                # start clicked
-
-                if x >= 360 and x <= 490 and y >= 480 and y <= 520:
-                    done = False
-                    start = True
-    
-                    # adding all the static items
-                    
-                    screen.fill(BACKGROUND_COLOR)
-    
-                    create_board(screen)
-        
-                    create_game_options(screen)
-
-                    create_player_info(screen,Players,Cards,cur_player)
-
-                    roll_dice(screen,4,2)
-
-                    for player in Players:
-                        player.move_player(screen,player.cur_position)
-    
-                # quit clicked
-
-                if x >= 600 and x <= 730 and y >= 480 and y <= 520:
-                    done = True
-                    start = True
-
-        
-
-        clock.tick(60)
-
-        pygame.display.update()
-
-    
+    done = display_start_game_window(screen,Players,Cards,cur_player)
 
     clock = pygame.time.Clock()
 
@@ -205,26 +123,24 @@ def run_game():
                 # handle inputs
 
                 Rects = get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects)
-                rect_index = get_rect_pressed_index(mouse_pos,Rects)
+                if Rects != None:
 
-                # take necessary action based on the event that occured in the game
-                # kind of semaphore I think ;)
+                    # rects is option,info or board
+                    
+                    rect_index = get_rect_pressed_index(mouse_pos,Rects)
+
+                    # take necessary action based on the event that occured in the game
+                    # kind of semaphore I think ;)
+
+                    if Rects == Option_Rects and rect_index < len(Rects):
+
+                        # rect is among the Rects
+                        
+                        if isRunning == False:
+                            isRunning = True
+                            cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
                 
-                if isRunning == False:
-                    isRunning = True
-                    cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
 
-                # update the state of the game after every turn
-                # 1. Current Player
-                # 2. Property of each player
-                # 3. Balance of each player
-                # 4. Position
-                # 5. Other Player Attributes
-                # 6. Status of each card
-                # 7. Houses and hotels details associated with each card
-                
-
-        ####
 
         
 
