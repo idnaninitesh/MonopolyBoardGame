@@ -5,14 +5,14 @@ import sys
 from pygame.locals import *
 
 from variables import *
+from Player import *
+from Card import *
 from ask_for_game_details import *
 from create_board import *
 from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
 from handle_game import *
-from Player import *
-from Card import *
 
 
 # -------------------MAIN GAME FUNTION---------------
@@ -84,7 +84,18 @@ def run_game():
     
     cur_player = 0;
 
-   
+
+    """
+        Test Build Feature
+
+    Players[cur_player].property_owned.append(1)
+    Players[cur_player].property_owned.append(3)
+    Cards[1].status = 1
+    Cards[3].status = 1
+    Players[cur_player].color_cards_owned.append(BROWN_CARDS)
+
+    """
+
     create_player_info(screen,Players,Cards,cur_player)
 
     Info_Cards_Rects = create_info_rects()
