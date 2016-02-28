@@ -6,13 +6,14 @@ from random import *
 from pygame.locals import *
 
 from variables import *
+from Card import *
+from Player import *
 from create_board import *
 from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
+from handle_game import *
 from display_windows import *
-from Card import *
-from Player import *
 
 """
 Rules :
@@ -57,8 +58,6 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
 
         create_player_info(screen,Players,Cards,cur_player)
 
-        roll_dice(screen,no1,no2)
-
         for temp in Players:
             temp.move_player(screen,temp.cur_position)
 
@@ -84,8 +83,6 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
 
             create_player_info(screen,Players,Cards,cur_player)
 
-            roll_dice(screen,no1,no2)
-
             for player in Players:
                 player.move_player(screen,player.cur_position)
 
@@ -108,8 +105,6 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             create_game_options(screen)
 
             create_player_info(screen,Players,Cards,cur_player)
-
-            roll_dice(screen,no1,no2)
 
             for player in Players:
                 player.move_player(screen,player.cur_position)
@@ -135,8 +130,6 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             create_game_options(screen)
 
             create_player_info(screen,Players,Cards,cur_player)
-
-            roll_dice(screen,no1,no2)
 
             for player in Players:
                 player.move_player(screen,player.cur_position)
@@ -206,12 +199,35 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
                 if buy_prop == True:
                     player.cur_balance -= Cards[final_card].cost
                     Cards[final_card].status = 1
+                    
                     player.property_owned.append(final_card)
                     if final_card == 12 or final_card == 28:
                         player.total_utilities_owned += 1
                     elif final_card == 5 or final_card == 15 or final_card == 25 or final_card == 35:
                         player.total_rails_owned += 1
-                    
+                    else:
+                        property_owned = set(player.property_owned)
+                        
+                        if set(BROWN_CARDS).issubset(property_owned) and BROWN_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(BROWN_CARDS)
+                        if set(LIGHT_BLUE_CARDS).issubset(property_owned) and LIGHT_BLUE_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(LIGHT_BLUE_CARDS)
+                        if set(PINK_CARDS).issubset(property_owned) and PINK_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(PINK_CARDS)
+                        if set(ORANGE_CARDS).issubset(property_owned) and ORANGE_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(ORANGE_CARDS)
+                        if set(RED_CARDS).issubset(property_owned) and RED_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(RED_CARDS)
+                        if set(YELLOW_CARDS).issubset(property_owned) and YELLOW_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(YELLOW_CARDS)
+                        if set(GREEN_CARDS).issubset(property_owned) and GREEN_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(GREEN_CARDS)
+                        if set(BLUE_CARDS).issubset(property_owned) and BLUE_CARDS not in player.color_cards_owned:
+                            player.color_cards_owned.append(BLUE_CARDS)
+                        
+
+                        
+                        
                     
                     
                 
