@@ -5,15 +5,13 @@ from random import *
 from pygame.locals import *
 
 from variables import *
+from Player import *
+from Card import *
+from ask_for_game_details import *
 from create_board import *
 from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
-from handle_game import *
-from Card import *
-from Player import *
-
-
 
 # display window to ask user to start the game
 
@@ -172,7 +170,7 @@ def display_jail_card_window(screen):
                       (OPTION_WIDTH,OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('USE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - ACTION_SCREEN-HEIGHT - OPTION_MARGIN + 5))
+    screen.blit(font.render('USE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
 
 
     pygame.draw.rect(screen,
@@ -236,7 +234,7 @@ def display_buy_property_window(screen,final_card,Players,Cards,cur_player):
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
     screen.blit(font.render('BUY ' + str(Cards[final_card].name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-    screen.blit(font.render('COST : M ' + str(Cards[final_card].cost),True,WHITE),(ACTION_SCREEN_LEFT + 100,ACTION_SCREEN_TOP + 70))
+    screen.blit(font.render('COST : M ' + str(Cards[final_card].cost),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
 
     pygame.draw.rect(screen,
@@ -260,7 +258,7 @@ def display_buy_property_window(screen,final_card,Players,Cards,cur_player):
     clock = pygame.time.Clock()
 
     start = False
-    status = False
+    buy_prop = False
 
 
     while not start:
@@ -413,10 +411,12 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
                             # rect is among the Rects
                             
                             if isRunning == False:
+                                from handle_game import handle_game
+
                                 isRunning = True
-                                print("Trade")
                                 cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
-                
+                                start = True
+
 
 
         clock.tick(60)
@@ -589,5 +589,188 @@ def display_pass_go_window(screen):
 
     pygame.display.update()
     pygame.time.delay(ACTION_SCREEN_DELAY)
+
+
+
+
+# display window to allow user to build houses/hotel
+
+def display_build_window(screen,Players,Cards,cur_player,Mark):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,180),
+                        (ACTION_SCREEN_WIDTH,420)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('SELECT HIGHLIGHTED CARD',True,WHITE),(ACTION_SCREEN_LEFT + 20,200))
+
+
+    create_info_cards(screen,ACTION_SCREEN_LEFT + 90,250)
+    Build_Cards_Rects = create_info_rects(ACTION_SCREEN_LEFT + 90,250)
+
+   #   UPDATING PLAYER PROPERTY
+
+    for player_property in Mark:
+        if Cards[player_property].color == "RED":
+            color = RED
+        elif Cards[player_property].color == "GREEN":
+            color = GREEN
+        elif Cards[player_property].color == "BLUE":
+            color = BLUE
+        elif Cards[player_property].color == "YELLOW":
+            color = YELLOW
+        elif Cards[player_property].color == "BLACK":
+            color = BLACK
+        elif Cards[player_property].color == "BROWN":
+            color = BROWN
+        elif Cards[player_property].color == "LIGHT_BLUE":
+            color = LIGHT_BLUE
+        elif Cards[player_property].color == "PINK":
+            color = PINK
+        elif Cards[player_property].color == "ORANGE":
+            color = ORANGE
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Build_Cards_Rects[player_property].left,
+                          Build_Cards_Rects[player_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
+
+    
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,560))
+
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    build_card = None
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
+                    start = True
+
+                else:
+                    build_card = get_rect_pressed_index(mouse_pos,Build_Cards_Rects)
+                    if build_card < len(Build_Cards_Rects):
+                        start = True
+                    
+
+
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+
+    return build_card        
+
+    
+
+    
+def display_build_confirm_window(screen,card):
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+
+    if card.houses_built == 4:
+        screen.blit(font.render('Build HOTEL on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+    else:
+        screen.blit(font.render('Build HOUSE on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+    screen.blit(font.render('COST : M ' + str(card.house_cost),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+
+
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('BUILD',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    build_prop = False
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # build clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    build_prop = True
+                    start = True
+    
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    build_prop = False
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
+    return build_prop
 
 
