@@ -13,6 +13,7 @@ from create_player_info import *
 from handle_mouse_event import *
 from handle_dice_roll import *
 from handle_build import *
+from handle_sell import *
 
 
 def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning):
@@ -35,7 +36,7 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
 
         if rect_index == 0:
             
-            cur_player = handle_dice_roll(screen,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+            cur_player = handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
 
         # build house/hotel
 
@@ -43,11 +44,11 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
 
             cur_player = handle_build(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
 
-            print("1;)")
         elif rect_index == 2:
             print("2;)")
             # trade
         elif rect_index == 3:
+            cur_player = handle_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
             print("3;)")
             # sell
         elif rect_index == 4:
