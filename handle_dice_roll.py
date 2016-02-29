@@ -15,7 +15,7 @@ from handle_game import *
 
 # roll dice and take action based on the new position of the current player
 
-def handle_dice_roll(screen,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects):
+def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects):
     
 
     # adding static part
