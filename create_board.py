@@ -72,7 +72,7 @@ def create_board(screen):
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 10)
     screen.blit(font.render('BALTIC', True, BLACK), (708, 720))
     screen.blit(font.render('AVENUE', True, BLACK), (708, 735))
-    screen.blit(font.render('(M 80)', True, BLACK), (708, 755))
+    screen.blit(font.render('(M 60)', True, BLACK), (708, 755))
 
 
     #adding light blue cards
@@ -911,7 +911,7 @@ def create_card_rects():
     Rects.append(rect)
 
 
-    card = Card(3,"BALTIC AVENUE","BROWN",80,4,30,50,50,[20,60,80,320],450,(701,701),(1330,350))
+    card = Card(3,"BALTIC AVENUE","BROWN",60,4,30,50,50,[20,60,80,320],450,(701,701),(1330,350))
     Cards.append(card)
     rect = pygame.Rect((701,701),(CARD_WIDTH,CARD_HEIGHT))
     Rects.append(rect)
