@@ -415,6 +415,7 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
 
                                 isRunning = True
                                 cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
+                                display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
                                 start = True
 
 
@@ -444,36 +445,36 @@ def display_chance_window(screen,card):
         screen.blit(font.render('Advance token to the nearest Railroad',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 4:
         screen.blit(font.render('Advance to St. Charles Place – if you ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' pass Go, collect $200',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' pass Go, collect $200',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 5:
         screen.blit(font.render('Bank pays you dividend of $50',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 6:
         screen.blit(font.render('Get out of Jail free – this card may be ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' kept until needed, or traded/sold',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' kept until needed, or traded/sold',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 7:
         screen.blit(font.render('Go back 3 spaces ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 8:
         screen.blit(font.render('Go directly to Jail – do not pass Go, ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' do not collect $200',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' do not collect $200',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 9:
         screen.blit(font.render('Make general repairs on all your property – ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render('for each house pay $25 – for each hotel $100 ',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render('for each house pay $25 – for each hotel $100 ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 10:
         screen.blit(font.render('Pay poor tax of $15',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 11:
         screen.blit(font.render('Take a trip to Reading Railroad – if',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render('you pass Go collect $200 ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
+        screen.blit(font.render('you pass Go collect $200 ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 12:
         screen.blit(font.render('Take a walk on the Boardwalk – ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render('advance token to Boardwalk',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render('advance token to Boardwalk',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 13:
         screen.blit(font.render('You have been elected chairman ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render('of the board – pay each player $50',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render('of the board – pay each player $50',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 14:
         screen.blit(font.render('Your building loan matures – collect $150',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 15:
         screen.blit(font.render('You have won a crossword competition',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' - collect $100',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
+        screen.blit(font.render(' - collect $100',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
 
 
     pygame.display.update()
@@ -495,21 +496,21 @@ def display_community_window(screen,card):
         screen.blit(font.render('Advance to Go (Collect $200)',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 2:
         screen.blit(font.render('Bank error in your favor -',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' collect $75',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' collect $75',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 3:
         screen.blit(font.render('Doctor\'s fee - Pay $50',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 4:
         screen.blit(font.render('Get out of Jail free – this card may be ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' kept until needed, or traded/sold',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' kept until needed, or traded/sold',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 5:
         screen.blit(font.render('Go directly to Jail – do not pass Go, ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' do not collect $200',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' do not collect $200',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 6:
         screen.blit(font.render('It is your birthday Collect ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' $10 from each player',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' $10 from each player',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 7:
         screen.blit(font.render('Grand Opera Night - collect $50 ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' for opening night seats',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' for opening night seats',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 8:
         screen.blit(font.render('Income Tax Refund - collect $20 ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 9:
@@ -522,10 +523,10 @@ def display_community_window(screen,card):
         screen.blit(font.render('Receive $25 Consultancy Fees',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 13:
         screen.blit(font.render('You are assessed for street repairs ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render('$40 per house, $115 per hotel',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render('$40 per house, $115 per hotel',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 14:
         screen.blit(font.render('Your have won second prize in a beauty ',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-        screen.blit(font.render(' contest – collect $10',True,WHITE),(ACTION_SCREEN_LEFT + 20,280))
+        screen.blit(font.render(' contest – collect $10',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
     elif card == 15:
         screen.blit(font.render('You inherit $100',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 16:
@@ -696,7 +697,7 @@ def display_build_window(screen,Players,Cards,cur_player,Mark):
     return build_card        
 
     
-
+# display window to confirm building of houses or hotel
     
 def display_build_confirm_window(screen,card):
 
@@ -772,5 +773,192 @@ def display_build_confirm_window(screen,card):
 
     
     return build_prop
+
+
+#display window to allow user to sell property,hotel and houses
+
+def display_sell_window(screen,Players,Cards,cur_player,Mark):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,180),
+                        (ACTION_SCREEN_WIDTH,420)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('SELECT HIGHLIGHTED CARD',True,WHITE),(ACTION_SCREEN_LEFT + 20,200))
+
+
+    create_info_cards(screen,ACTION_SCREEN_LEFT + 90,250)
+    Sell_Cards_Rects = create_info_rects(ACTION_SCREEN_LEFT + 90,250)
+
+   #   UPDATING PLAYER PROPERTY
+
+    for player_property in Mark:
+        if Cards[player_property].color == "RED":
+            color = RED
+        elif Cards[player_property].color == "GREEN":
+            color = GREEN
+        elif Cards[player_property].color == "BLUE":
+            color = BLUE
+        elif Cards[player_property].color == "YELLOW":
+            color = YELLOW
+        elif Cards[player_property].color == "BLACK":
+            color = BLACK
+        elif Cards[player_property].color == "BROWN":
+            color = BROWN
+        elif Cards[player_property].color == "LIGHT_BLUE":
+            color = LIGHT_BLUE
+        elif Cards[player_property].color == "PINK":
+            color = PINK
+        elif Cards[player_property].color == "ORANGE":
+            color = ORANGE
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Sell_Cards_Rects[player_property].left,
+                          Sell_Cards_Rects[player_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
+
+    
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,560))
+
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    sell_card = None
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
+                    start = True
+
+                else:
+                    sell_card = get_rect_pressed_index(mouse_pos,Sell_Cards_Rects)
+                    if sell_card < len(Sell_Cards_Rects):
+                        start = True
+                    
+
+
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+
+    return sell_card        
+
+
+
+def display_sell_confirm_window(screen,card):
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+
+    if card.hotel_built == 1:
+        screen.blit(font.render('Sell HOTEL on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+        screen.blit(font.render('RETURN VALUE : M ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+
+    elif card.houses_built > 0:
+        screen.blit(font.render('Sell HOUSE on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+        screen.blit(font.render('RETURN VALUE : M ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+    else:
+        screen.blit(font.render('Sell Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+        screen.blit(font.render('RETURN VALUE : M ' + str(int(card.cost*0.9)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+
+
+
+
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('SELL',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    sell_prop = False
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # sell clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    sell_prop = True
+                    start = True
+    
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    sell_prop = False
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
+    return sell_prop
 
 
