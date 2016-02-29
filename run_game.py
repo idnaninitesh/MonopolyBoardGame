@@ -4,7 +4,6 @@ import pygame.gfxdraw
 import sys
 from pygame.locals import *
 
-from variables import *
 from Player import *
 from Card import *
 from ask_for_game_details import *
@@ -87,6 +86,7 @@ def run_game():
 
     """
         Test Build Feature
+    """
 
     Players[cur_player].property_owned.append(1)
     Players[cur_player].property_owned.append(3)
@@ -94,6 +94,7 @@ def run_game():
     Cards[3].status = 1
     Players[cur_player].color_cards_owned.append(BROWN_CARDS)
 
+    """
     """
 
     create_player_info(screen,Players,Cards,cur_player)
