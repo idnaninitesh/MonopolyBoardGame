@@ -15,7 +15,6 @@ from handle_mouse_event import *
 
 # display window to ask user to start the game
 
-
 def display_start_game_window(screen,Players,Cards,cur_player):
     
 
@@ -879,6 +878,8 @@ def display_sell_window(screen,Players,Cards,cur_player,Mark):
 
 
 
+# display window to confirm selling of houses or hotel or property
+
 def display_sell_confirm_window(screen,card):
 
     pygame.gfxdraw.box(screen,
@@ -961,4 +962,442 @@ def display_sell_confirm_window(screen,card):
     
     return sell_prop
 
+
+# mortgage
+
+#display window to allow user to mortgage property
+
+def display_mortgage_window(screen,Players,Cards,cur_player,Mark):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,180),
+                        (ACTION_SCREEN_WIDTH,420)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('SELECT HIGHLIGHTED CARD',True,WHITE),(ACTION_SCREEN_LEFT + 20,200))
+
+
+    create_info_cards(screen,ACTION_SCREEN_LEFT + 90,250)
+    Mortgage_Cards_Rects = create_info_rects(ACTION_SCREEN_LEFT + 90,250)
+
+   #   UPDATING PLAYER PROPERTY
+
+    for player_property in Mark:
+        if Cards[player_property].color == "RED":
+            color = RED
+        elif Cards[player_property].color == "GREEN":
+            color = GREEN
+        elif Cards[player_property].color == "BLUE":
+            color = BLUE
+        elif Cards[player_property].color == "YELLOW":
+            color = YELLOW
+        elif Cards[player_property].color == "BLACK":
+            color = BLACK
+        elif Cards[player_property].color == "BROWN":
+            color = BROWN
+        elif Cards[player_property].color == "LIGHT_BLUE":
+            color = LIGHT_BLUE
+        elif Cards[player_property].color == "PINK":
+            color = PINK
+        elif Cards[player_property].color == "ORANGE":
+            color = ORANGE
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Mortgage_Cards_Rects[player_property].left,
+                          Mortgage_Cards_Rects[player_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
+
+    
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,560))
+
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    mortgage_card = None
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
+                    start = True
+
+                else:
+                    mortgage_card = get_rect_pressed_index(mouse_pos,Mortgage_Cards_Rects)
+                    if mortgage_card < len(Mortgage_Cards_Rects):
+                        start = True
+                    
+
+
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+
+    return mortgage_card        
+
+
+# display window to confirm mortgage of property
+
+def display_mortgage_confirm_window(screen,card):
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+
+    screen.blit(font.render('Mortgage Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+    screen.blit(font.render('RETURN VALUE : M ' + str(card.mortgage_value),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+
+
+
+
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+    screen.blit(font.render('MORTGAGE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    mortgage_prop = False
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # mortgage clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    mortgage_prop = True
+                    start = True
+    
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    mortgage_prop = False
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
+    return mortgage_prop
+
+
+
+#display window to allow user to unmortgage property
+
+def display_unmortgage_window(screen,Players,Cards,cur_player,Mark):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,180),
+                        (ACTION_SCREEN_WIDTH,420)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('SELECT HIGHLIGHTED CARD',True,WHITE),(ACTION_SCREEN_LEFT + 20,200))
+
+
+    create_info_cards(screen,ACTION_SCREEN_LEFT + 90,250)
+    Unmortgage_Cards_Rects = create_info_rects(ACTION_SCREEN_LEFT + 90,250)
+
+   #   UPDATING PLAYER PROPERTY
+
+    for player_property in Mark:
+        if Cards[player_property].color == "RED":
+            color = RED
+        elif Cards[player_property].color == "GREEN":
+            color = GREEN
+        elif Cards[player_property].color == "BLUE":
+            color = BLUE
+        elif Cards[player_property].color == "YELLOW":
+            color = YELLOW
+        elif Cards[player_property].color == "BLACK":
+            color = BLACK
+        elif Cards[player_property].color == "BROWN":
+            color = BROWN
+        elif Cards[player_property].color == "LIGHT_BLUE":
+            color = LIGHT_BLUE
+        elif Cards[player_property].color == "PINK":
+            color = PINK
+        elif Cards[player_property].color == "ORANGE":
+            color = ORANGE
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Unmortgage_Cards_Rects[player_property].left,
+                          Unmortgage_Cards_Rects[player_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
+
+    
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,560))
+
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    unmortgage_card = None
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
+                    start = True
+
+                else:
+                    unmortgage_card = get_rect_pressed_index(mouse_pos,Unmortgage_Cards_Rects)
+                    if unmortgage_card < len(Unmortgage_Cards_Rects):
+                        start = True
+                    
+
+
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+
+    return unmortgage_card        
+
+
+# display window to confirm remove mortgage of property
+
+def display_unmortgage_confirm_window(screen,card):
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+
+    screen.blit(font.render('Unmortgage Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+    screen.blit(font.render('COST : M ' + str(int(card.mortgage_value*1.1)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+
+
+
+
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 16)
+    screen.blit(font.render('UNMORTGAGE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    unmortgage_prop = False
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # unmortgage clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    unmortgage_prop = True
+                    start = True
+    
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    unmortgage_prop = False
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
+    return unmortgage_prop
+
+
+# display window to ask user to quit the game
+
+def display_quit_window(screen):
+    
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('QUIT GAME',True,WHITE),(ACTION_SCREEN_LEFT + 150,ACTION_SCREEN_TOP + 60))
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('QUIT',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN - OPTION_WIDTH + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    done = False
+    start = False
+
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                done = True
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # quit clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    done = True
+                    start = True
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN  and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    done = False
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+    return done
 
