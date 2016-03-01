@@ -17,8 +17,8 @@ from display_windows import *
 """
 
 Rules :
-1) Property owned will be sold at 90% of the price o the bank
-2) Property mortgaged will be sold at 90% of price*2
+1) Property owned will be sold at 90% of the price to the bank
+2) Property mortgaged will be sold at 90% of price
 3) If houses/hotel is built on property sell them in the reverse order
 4) Display properties on which house can/should be sold
 
