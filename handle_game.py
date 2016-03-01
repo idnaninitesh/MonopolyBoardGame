@@ -14,6 +14,9 @@ from handle_mouse_event import *
 from handle_dice_roll import *
 from handle_build import *
 from handle_sell import *
+from handle_mortgage import *
+from handle_unmortgage import *
+from handle_quit import *
 
 
 def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning):
@@ -48,21 +51,23 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
             print("2;)")
             # trade
         elif rect_index == 3:
+
             cur_player = handle_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
-            print("3;)")
-            # sell
+
         elif rect_index == 4:
-            print("4;)")
-            # mortgage
+
+            cur_player = handle_mortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+
         elif rect_index == 5:
-            print("5;)")
-            # unmortgage
+
+            cur_player = handle_unmortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+
         elif rect_index == 6:
             print("6;)")
             # rules
         elif rect_index == 7:
-            pygame.quit()
-            # quit game
+            cur_player = handle_quit(screen,Players,Cards,cur_player)
+
 
 
         # unlocking the game loop
