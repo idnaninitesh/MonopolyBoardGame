@@ -7,7 +7,7 @@ class Card:
         self.color = color
         self.cost = cost
         self.rent = rent
-        self.morgtage_value = mortgage_value
+        self.mortgage_value = mortgage_value
         self.house_cost = house_cost
         self.hotel_cost = hotel_cost
         self.house_rent = house_rent
