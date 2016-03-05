@@ -85,7 +85,7 @@ def run_game():
 
 
     """
-        Test Build Feature
+        Test Data
     """
 
     Players[cur_player].property_owned.append(1)
@@ -93,6 +93,8 @@ def run_game():
     Cards[1].status = 1
     Cards[3].status = 1
     Players[cur_player].color_cards_owned.append(BROWN_CARDS)
+
+    Players[cur_player].cur_balance = -50
 
     """
     """
