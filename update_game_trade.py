@@ -96,7 +96,7 @@ def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,O
                         if Cards[send_index].status == 1:
                             player.property_owned.remove(send_index)
                             other.property_owned.append(send_index)
-                        elif Card[send_index].status == 2:
+                        elif Cards[send_index].status == 2:
                             player.property_mortgaged.remove(send_index)
                             other.property_mortgaged.append(send_index)
 
@@ -147,7 +147,7 @@ def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,O
                         if Cards[receive_index].status == 1:
                             other.property_owned.remove(receive_index)
                             player.property_owned.append(receive_index)
-                        elif Card[receive_index].status == 2:
+                        elif Cards[receive_index].status == 2:
                             other.property_mortgaged.remove(receive_index)
                             player.property_mortgaged.append(receive_index)
 
