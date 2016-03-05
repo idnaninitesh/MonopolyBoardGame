@@ -387,7 +387,7 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
 
     start = False
 
-    isRunning = False
+    end_turn = False
 
     while not start:
 
@@ -406,6 +406,7 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
 
                 if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
                     start = True
+                    end_turn = True
 
                 else:
                     Rects = get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects)
@@ -422,13 +423,12 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
                         if Rects == Option_Rects and rect_index > 0 and rect_index < len(Rects):
     
                             # rect is among the Rects
+                            end_turn = False
                             
-                            if isRunning == False:
+                            if end_turn == False:
                                 from handle_game import handle_game
 
-                                isRunning = True
-                                cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
-                                display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+                                handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,True)
                                 start = True
 
 
@@ -436,6 +436,9 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
         clock.tick(60)
 
         pygame.display.update()
+
+    return end_turn
+        
 
 
 
@@ -2013,5 +2016,88 @@ def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,rec
     
     return trade_prop
 
-   
+
+
+#   --------------------    BANKRUPT    -------------------
+
+# display window to allow user to declare bakrupt
+# also allow game options click except roll dice,build and unmortgage
+
+def display_bankrupt_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects):
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('DECLARE BANKRUPTCY',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 60))
+
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE,20)
+    screen.blit(font.render('DECLARE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+
+    quit_player = False
+
+    while not start:
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+    
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # declare clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    start = True
+                    quit_player = True
+
+                else:
+                    Rects = get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects)
+
+                    if Rects != None:
+
+                        # rects is option,info or board
+                        
+                        rect_index = get_rect_pressed_index(mouse_pos,Rects)
+
+                        # take necessary action based on the event that occured in the game
+                        # kind of semaphore I think ;)
+
+                        if Rects == Option_Rects and rect_index != 0 and rect_index != 1 and rect_index != 5 and rect_index < len(Rects):
+    
+                            # rect is among the Rects
+                            end_turn = False
+                            
+                            if end_turn == False:
+                                from handle_game import handle_game
+
+                                handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,True)
+                                start = True
+
+
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    return quit_player
+        
+
+    
 
