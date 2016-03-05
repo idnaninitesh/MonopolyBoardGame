@@ -13,6 +13,7 @@ from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
 from handle_game import *
+from handle_quit_player import *
 from display_windows import *
 
 """
@@ -187,44 +188,44 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             
 
         if Cards[final_card].status == 0:
-            if player.cur_balance > Cards[final_card].cost:
-                buy_prop = display_buy_property_window(screen,final_card,Players,Cards,cur_player)
+            
+            buy_prop = display_buy_property_window(screen,final_card,Players,Cards,cur_player)
 
-                # buys property
-                # pay cost
-                # update card status
-                # update player property
-                # if utility or railroad update count
+            # buys property
+            # pay cost
+            # update card status
+            # update player property
+            # if utility or railroad update count
+            
+            if buy_prop == True:
+                player.cur_balance -= Cards[final_card].cost
+                Cards[final_card].status = 1
                 
-                if buy_prop == True:
-                    player.cur_balance -= Cards[final_card].cost
-                    Cards[final_card].status = 1
+                player.property_owned.append(final_card)
+                if final_card == 12 or final_card == 28:
+                    player.total_utilities_owned += 1
+                elif final_card == 5 or final_card == 15 or final_card == 25 or final_card == 35:
+                    player.total_rails_owned += 1
+                else:
+                    property_owned = set(player.property_owned)
                     
-                    player.property_owned.append(final_card)
-                    if final_card == 12 or final_card == 28:
-                        player.total_utilities_owned += 1
-                    elif final_card == 5 or final_card == 15 or final_card == 25 or final_card == 35:
-                        player.total_rails_owned += 1
-                    else:
-                        property_owned = set(player.property_owned)
-                        
-                        if set(BROWN_CARDS).issubset(property_owned) and BROWN_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(BROWN_CARDS)
-                        if set(LIGHT_BLUE_CARDS).issubset(property_owned) and LIGHT_BLUE_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(LIGHT_BLUE_CARDS)
-                        if set(PINK_CARDS).issubset(property_owned) and PINK_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(PINK_CARDS)
-                        if set(ORANGE_CARDS).issubset(property_owned) and ORANGE_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(ORANGE_CARDS)
-                        if set(RED_CARDS).issubset(property_owned) and RED_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(RED_CARDS)
-                        if set(YELLOW_CARDS).issubset(property_owned) and YELLOW_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(YELLOW_CARDS)
-                        if set(GREEN_CARDS).issubset(property_owned) and GREEN_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(GREEN_CARDS)
-                        if set(BLUE_CARDS).issubset(property_owned) and BLUE_CARDS not in player.color_cards_owned:
-                            player.color_cards_owned.append(BLUE_CARDS)
-                        
+                    if set(BROWN_CARDS).issubset(property_owned) and BROWN_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(BROWN_CARDS)
+                    if set(LIGHT_BLUE_CARDS).issubset(property_owned) and LIGHT_BLUE_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(LIGHT_BLUE_CARDS)
+                    if set(PINK_CARDS).issubset(property_owned) and PINK_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(PINK_CARDS)
+                    if set(ORANGE_CARDS).issubset(property_owned) and ORANGE_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(ORANGE_CARDS)
+                    if set(RED_CARDS).issubset(property_owned) and RED_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(RED_CARDS)
+                    if set(YELLOW_CARDS).issubset(property_owned) and YELLOW_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(YELLOW_CARDS)
+                    if set(GREEN_CARDS).issubset(property_owned) and GREEN_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(GREEN_CARDS)
+                    if set(BLUE_CARDS).issubset(property_owned) and BLUE_CARDS not in player.color_cards_owned:
+                        player.color_cards_owned.append(BLUE_CARDS)
+                    
 
                         
                         
@@ -235,8 +236,10 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             
             prop_holder = None
 
+            player = Players[cur_player]
+
             for temp in Players:
-                if final_card in temp.property_owned:
+                if player != temp and final_card in temp.property_owned:
                     prop_holder = temp
                     break
 
