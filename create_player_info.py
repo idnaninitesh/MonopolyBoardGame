@@ -53,7 +53,7 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
                       (INFO_WIDTH,
                       (INFO_HEIGHT + INFO_MARGIN) * 3 + 25)),2)
 
-    create_info_cards(screen)     
+    create_info_cards(screen) 
 
  
 
@@ -109,11 +109,11 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
                 color = WHITE
     
             pygame.draw.rect(screen,
-                         color,
-                         (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
-                           (INFO_MARGIN + INFO_HEIGHT) * j - INFO_MARGIN * k + 25),
-                          (INFO_WIDTH,
-                          INFO_HEIGHT)),2)
+                             color,
+                             (((BOARD_WIDTH + INFO_BOARD_SPACING/2),
+                               (INFO_MARGIN + INFO_HEIGHT) * j - INFO_MARGIN * k + 25),
+                              (INFO_WIDTH,
+                               INFO_HEIGHT)),2)
             
     
             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
@@ -156,7 +156,6 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
                            INFO_CARD_HEIGHT)))
 
     
-
         
 
 def create_info_cards(screen,dist_x = 1155,dist_y = 100):
