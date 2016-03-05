@@ -14,6 +14,7 @@ from update_game_build import *
 from update_game_sell import *
 from update_game_mortgage import *
 from update_game_unmortgage import *
+from display_windows import *
 
 def handle_quit(screen,Players,Cards,cur_player):
 
