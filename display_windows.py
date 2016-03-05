@@ -1601,8 +1601,8 @@ def display_select_trade_player_window(screen,Players,Cards,cur_player):
 def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,int_send,int_receive,int_send_prop,int_receive_prop):
 
 
-    send_amount = int_send
-    receive_amount = int_receive
+    send_amount = 0
+    receive_amount = 0
     send_prop = int_send_prop
     receive_prop = int_receive_prop
 
@@ -1794,10 +1794,11 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
 
                 if x >= 405 and x <= 475 and y >= 500 and y <= 525:
                     amt_done = False
+                    #pygame.event.wait()
                     while not amt_done:
                         for evnt in pygame.event.get():
                             if evnt.type == KEYDOWN:
-                                if evnt.unicode.isdigit and send_amount*10 + int(evnt.unicode) < Players[cur_player].cur_balance:
+                                if evnt.unicode.isdigit() and send_amount*10 + int(evnt.unicode) < Players[cur_player].cur_balance:
                                     send_amount = send_amount*10 + int(evnt.unicode)
                                 elif evnt.key == K_BACKSPACE:
                                     if send_amount != 0:
@@ -1806,40 +1807,17 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                                     if send_amount < Players[cur_player].cur_balance:
                                         amt_done = True
 
+                        pygame.draw.rect(screen,
+                                         BLACK,
+                                         ((405,500),
+                                         (70,25)))
 
-                        player = Players[cur_player]
-                        other = Players[other_player]
+                        font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
+                        screen.blit(font.render('M ' + str(send_amount),True,WHITE),(410,505))
 
-                        Cur_Mark = []
-                        Other_Mark = []
+                        pygame.display.update()
 
-                        for prop in player.property_owned:
-                            Cur_Mark.append(prop)
 
-                        for prop in player.property_mortgaged:
-                            Cur_Mark.append(prop)
-
-                        for prop in other.property_owned:
-                            Other_Mark.append(prop)
-
-                        for prop in other.property_mortgaged:
-                            Other_Mark.append(prop)
-
-                        if Cur_Mark != None or Other_Mark != None:
-                            # adding static part
-                            
-                            screen.fill(BACKGROUND_COLOR)
-
-                            create_board(screen)
-
-                            create_game_options(screen)
-                            
-                            for player in Players:
-                                player.move_player(screen,player.cur_position)
-
-                            create_player_info(screen,Players,Cards,cur_player)
-                            
-                        display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,send_amount,receive_amount,send_prop,receive_prop)
 
                         
                             
@@ -1848,11 +1826,11 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                 if x >= 525 and x <= 595 and y >= 500 and y <= 525:
 
                     amt_done = False
-
+                    #pygame.event.wait()
                     while not amt_done:
                         for evtn in pygame.event.get():
                             if evtn.type == KEYDOWN:
-                                if evtn.unicode.isdigit and receive_amount*10 + int(evtn.unicode) < Players[other_player].cur_balance:
+                                if evtn.unicode.isdigit() and receive_amount*10 + int(evtn.unicode) < Players[other_player].cur_balance:
                                     receive_amount = receive_amount*10 + int(evtn.unicode)
                                 elif evtn.key == K_BACKSPACE:
                                     if receive_amount != 0:
@@ -1861,41 +1839,15 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                                     if receive_amount < Players[other_player].cur_balance:
                                         amt_done = True
 
-                        player = Players[cur_player]
-                        other = Players[other_player]
+                        pygame.draw.rect(screen,
+                                         BLACK,
+                                         ((525,500),
+                                         (70,25)))
 
-                        Cur_Mark = []
-                        Other_Mark = []
-
-                        for prop in player.property_owned:
-                            Cur_Mark.append(prop)
-
-                        for prop in player.property_mortgaged:
-                            Cur_Mark.append(prop)
-
-                        for prop in other.property_owned:
-                            Other_Mark.append(prop)
-
-                        for prop in other.property_mortgaged:
-                            Other_Mark.append(prop)
-
-                        if Cur_Mark != None or Other_Mark != None:
-                            # adding static part
-                            
-                            screen.fill(BACKGROUND_COLOR)
-
-                            create_board(screen)
-
-                            create_game_options(screen)
-                            
-                            for player in Players:
-                                player.move_player(screen,player.cur_position)
-
-                            create_player_info(screen,Players,Cards,cur_player)
-
-                            
-                        display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,send_amount,receive_amount,send_prop,receive_prop)
-                
+                        font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
+                        screen.blit(font.render('M ' + str(receive_amount),True,WHITE),(530,505))    
+                        
+                        pygame.display.update()
                     
         
 
@@ -1926,12 +1878,19 @@ def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,rec
     y_start = ACTION_SCREEN_TOP + 30
     receive_worth = receive_amount
     
-    for receive_card in Receive_Cards:
-        screen.blit(font.render('' + str(receive_card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
-        if receive_card.status == 1:
-            receive_worth += receive_card.cost
-        elif receive_card.status == 2:
-            receive_worth += receive_card.mortgage_value
+    if Receive_Cards != []:
+        for receive_card in Receive_Cards:
+            screen.blit(font.render('' + str(receive_card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+            if receive_card.status == 1:
+                receive_worth += receive_card.cost
+            elif receive_card.status == 2:
+                receive_worth += receive_card.mortgage_value
+            y_start += 20
+
+
+
+    if receive_amount != 0:
+        screen.blit(font.render('M ' + str(receive_amount),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
         y_start += 20
 
 
@@ -1952,6 +1911,12 @@ def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,rec
         elif send_card.status == 2:
             send_worth += send_card.mortgage_value
         y_start += 20
+
+
+    if send_amount != 0:
+        screen.blit(font.render('M ' + str(send_amount),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+        y_start += 20
+
 
     screen.blit(font.render('(Worth : ' + str(send_worth) + ')',True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
 
