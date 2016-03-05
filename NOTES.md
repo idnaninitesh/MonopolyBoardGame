@@ -1,11 +1,13 @@
 
 
-* Board and player info will be updated after each turn and game options will be not
+
+Additional Monopoly Features :
 
 
-1. Select roll dice
-2. Handle dice roll actions
-3. Show end turn window
-4. If user clicks on end turn update game and change player
-5. If user select other game option execute respective action
-6. Repeat steps 1-5 
+1. Add image for each card
+2. Show card while buying,selling and mortgage
+3. Show game piece movement on the board
+4. Add music
+5. Add focus on game options
+6. Display houses/hotel on a card
+7. Show rolling of dice
