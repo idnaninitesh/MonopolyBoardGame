@@ -94,7 +94,7 @@ def run_game():
     Cards[3].status = 1
     Players[cur_player].color_cards_owned.append(BROWN_CARDS)
 
-    Players[cur_player].cur_balance = -50
+    #Players[cur_player].cur_balance = -50
 
     """
     """
