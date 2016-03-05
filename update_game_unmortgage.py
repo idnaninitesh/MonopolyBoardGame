@@ -28,9 +28,10 @@ def update_game_unmortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Re
 
     # check if the card is valid
     # check the card against selling rules
+    # check if card's unmortgage cost is less than player's current balance
 
     if unmortgage_card != None:
-        if unmortgage_card in Mark:
+        if unmortgage_card in Mark and int(Cards[unmortgage_card].mortgage_value*1.1) <= Players[cur_player].cur_balance:
 
             card = Cards[unmortgage_card]
 
