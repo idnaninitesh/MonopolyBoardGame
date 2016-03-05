@@ -56,9 +56,10 @@ def update_game_build(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,I
     # check if the card is valid
     # none implies user clicked cancel
     # check if card is in mark
+    # check if card's house cost is less than player's balance
 
     if build_card != None:
-        if build_card in Mark:
+        if build_card in Mark and Cards[build_card].house_cost <= Players[cur_player].cur_balance:
 
             card = Cards[build_card]
 
