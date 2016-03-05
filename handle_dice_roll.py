@@ -87,20 +87,74 @@ def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
 
     player.cur_position = next_position
 
-    # show the state after update
+    isBankrupt = False
+    quit_player = False
 
-    screen.fill(BACKGROUND_COLOR)
+    # check if user is bankrupt or not
 
-    create_board(screen)
+    if Players[cur_player].cur_balance < 0:
+        Players[cur_player].isBankrupt = True
+        isBankrupt = True
+    else:
+        Players[cur_player].isBankrupt = False
+        
+    # run loop till player removes bankruptcy or declares himself as bankrupt
 
-    create_game_options(screen)
+    while not quit_player and isBankrupt:
+
+        # show the state after update
+
+        screen.fill(BACKGROUND_COLOR)
+
+        create_board(screen)
+
+        create_game_options(screen)
+        
+        for player in Players:
+            player.move_player(screen,player.cur_position)
+
+        create_player_info(screen,Players,Cards,cur_player)
+
+        quit_player = display_bankrupt_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+
+        if Players[cur_player].cur_balance < 0:
+            Players[cur_player].isBankrupt = True
+            isBankrupt = True
+        else:
+            Players[cur_player].isBankrupt = False
+            isBankrupt = False
+
+
+
+    # true implies player declares himself as bankrupt and withdraws from the game
     
-    for player in Players:
-        player.move_player(screen,player.cur_position)
+    if quit_player == True:
+        handle_quit_player(screen,Players,Cards,cur_player)
 
-    create_player_info(screen,Players,Cards,cur_player)
+    # implies player has removed bankruptcy
+    
+    else:
+        
 
-    display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+        end_turn = False
+
+        while not end_turn:
+
+            # show the state after update
+
+            screen.fill(BACKGROUND_COLOR)
+
+            create_board(screen)
+
+            create_game_options(screen)
+            
+            for player in Players:
+                player.move_player(screen,player.cur_position)
+
+            create_player_info(screen,Players,Cards,cur_player)
+
+            end_turn = display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+
 
     # change turn to next player
 
