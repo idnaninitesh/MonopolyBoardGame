@@ -13,9 +13,11 @@ from create_player_info import *
 from handle_mouse_event import *
 from handle_dice_roll import *
 from handle_build import *
+from handle_trade import *
 from handle_sell import *
 from handle_mortgage import *
 from handle_unmortgage import *
+from handle_rules import *
 from handle_quit import *
 
 
@@ -35,21 +37,20 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
 
     if len(Rects) == 8 and rect_index != 8:
         
-        # roll dice
 
         if rect_index == 0:
             
             cur_player = handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
 
-        # build house/hotel
 
         elif rect_index == 1:
 
             cur_player = handle_build(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
 
         elif rect_index == 2:
-            print("2;)")
-            # trade
+
+            cur_player = handle_trade(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
+            
         elif rect_index == 3:
 
             cur_player = handle_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
@@ -63,9 +64,11 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
             cur_player = handle_unmortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects)
 
         elif rect_index == 6:
-            print("6;)")
-            # rules
+
+            cur_player = handle_rules(screen,Players,Cards,cur_player)
+
         elif rect_index == 7:
+
             cur_player = handle_quit(screen,Players,Cards,cur_player)
 
 
