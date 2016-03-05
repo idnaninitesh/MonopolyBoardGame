@@ -13,6 +13,9 @@ from create_game_options import *
 from create_player_info import *
 from handle_mouse_event import *
 
+
+#   --------------  START GAME  -----------------
+
 # display window to ask user to start the game
 
 def display_start_game_window(screen,Players,Cards,cur_player):
@@ -99,8 +102,10 @@ def display_start_game_window(screen,Players,Cards,cur_player):
 
     return done
 
-    
 
+
+
+#   ----------------    RENT PAYMENT    ----------------
 
 #display window to inform payment of rent
 
@@ -151,7 +156,10 @@ def display_rent_payment_window(screen,rent,prop_holder):
 
     """
 
-        
+
+
+#   -----------------   JAIL CARD   ---------------
+
 # display window to prompt player for use of jail card
 
 def display_jail_card_window(screen):
@@ -222,6 +230,9 @@ def display_jail_card_window(screen):
     
     return use_card
                        
+
+
+#   --------------------    BUY PROPERTY    -------------------
 
 # display window to ask user if he wants to buy property or not
 
@@ -296,6 +307,9 @@ def display_buy_property_window(screen,final_card,Players,Cards,cur_player):
     return buy_prop
                        
 
+
+#   ----------------    GO TO JAIL  -----------------
+
 #display window to inform movemement to jail
 
 def display_go_to_jail_window(screen):
@@ -345,10 +359,10 @@ def display_go_to_jail_window(screen):
     """
 
 
+#   ----------------    END TURN    ------------------
 
 # display window to allow user to end turn
 # also allow game options click except roll dice
-
 
 def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects):
 
@@ -424,6 +438,8 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
         pygame.display.update()
 
 
+
+#   -----------------   CHANCE  ------------------
     
 # display window to show the chance card drawn
 
@@ -480,6 +496,8 @@ def display_chance_window(screen,card):
     pygame.time.delay(ACTION_SCREEN_DELAY)
 
 
+
+#   ----------------    COMMUNITY CHEST ----------------
 
 # display window to show the community chance card drawn
 
@@ -540,6 +558,8 @@ def display_community_window(screen,card):
 
 
 
+#   --------------- JAIL FINE   -----------------
+
 # display window to inform payment of jail fine
 
 def display_jail_fine_window(screen):
@@ -576,6 +596,9 @@ def display_tax_pay_window(screen,final_card):
     pygame.time.delay(ACTION_SCREEN_DELAY)
 
 
+
+#   ----------------    PASS GO --------------
+
 # display window to inform passing go
 
 def display_pass_go_window(screen):
@@ -592,6 +615,7 @@ def display_pass_go_window(screen):
 
 
 
+#   ---------------- BUILD  -----------------
 
 # display window to allow user to build houses/hotel
 
@@ -773,6 +797,8 @@ def display_build_confirm_window(screen,card):
     
     return build_prop
 
+
+#   --------------------    SELL    -------------------
 
 #display window to allow user to sell property,hotel and houses
 
@@ -963,7 +989,7 @@ def display_sell_confirm_window(screen,card):
     return sell_prop
 
 
-# mortgage
+#   --------------------    MORTGAGE    ------------------
 
 #display window to allow user to mortgage property
 
@@ -1147,6 +1173,7 @@ def display_mortgage_confirm_window(screen,card):
     return mortgage_prop
 
 
+#   --------------------    UNMORTGAGE  ------------------
 
 #display window to allow user to unmortgage property
 
@@ -1330,6 +1357,8 @@ def display_unmortgage_confirm_window(screen,card):
     return unmortgage_prop
 
 
+#   --------------------    QUIT GAME   -----------------
+
 # display window to ask user to quit the game
 
 def display_quit_window(screen):
@@ -1400,4 +1429,589 @@ def display_quit_window(screen):
 
 
     return done
+
+
+#   ----------------    RULES   ------------------
+
+def display_rules_window(screen):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((0,0),
+                        (1100,770)),TRANSPARENT)
+
+
+    rulesImg = pygame.image.load('rules.png')
+    rulesImg = pygame.transform.scale(rulesImg,(900,630))
+    screen.blit(rulesImg,(100,70))
+    
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((500, 720),
+                      (100,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('DONE',True,WHITE),(510,725))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # quit clicked
+
+                if x >= 500 and x <= 600  and y >= 720 and y <= 720 + OPTION_HEIGHT:
+                    start = True
+    
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+
+#   ----------------    TRADE   -----------------
+
+# display window to select player to trade with
+
+def display_select_trade_player_window(screen,Players,Cards,cur_player):
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+
+    screen.blit(font.render('Select the player you want to trade with :',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+
+    current = Players[cur_player]
+
+    rect_x = 320
+    rect_y = 250
+    rect_width = 420
+    rect_height = 50
+    rect_margin = 25
+    
+    Player_Boundary = []
+            
+    for player in Players:
+
+        if player != current:
+        
+            if player.color == "RED":
+                color = RED
+            elif player.color == "GREEN":
+                color = GREEN
+            elif player.color == "BLUE":
+                color = BLUE
+            elif player.color == "YELLOW":
+                color = YELLOW
+            else:
+                color = WHITE
+    
+            pygame.draw.rect(screen,
+                             color,
+                             ((rect_x,rect_y),
+                             (rect_width,rect_height)),2)
+            
+    
+            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+            screen.blit(font.render('' + player.name, True, color), (rect_x + 20,rect_y + 10))
+            screen.blit(font.render('M ' + str(player.cur_balance), True, color), (rect_x + 280,rect_y + 10))
+
+            Player_Boundary.append((rect_x,rect_y))
+
+            rect_y = rect_y + rect_height + rect_margin
+            
+
+        else:
+            Player_Boundary.append((-1,-1))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    other_player = -1
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                for bound in Player_Boundary:
+                    if x != -1 and y != -1 and x >= bound[0] and x <= bound[0] + rect_width and y >= bound[1] and y <= bound[1] + rect_height:
+                        other_player = Player_Boundary.index(bound)
+                        return other_player
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    other_player = -1
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    return other_player
+
+
+# display window to allow user to enter trade infomation
+
+def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,int_send,int_receive,int_send_prop,int_receive_prop):
+
+
+    send_amount = int_send
+    receive_amount = int_receive
+    send_prop = int_send_prop
+    receive_prop = int_receive_prop
+
+
+    pygame.gfxdraw.box(screen,
+                       ((175,150),
+                        (650,450)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('TRADE WINDOW',True,WHITE),(450,170))
+
+
+    # left cards
+    
+    create_info_cards(screen,200,200)
+    Send_Cards_Rects = create_info_rects(200,200)
+
+    # seperator
+    pygame.draw.line(screen, WHITE, (500,200), (500,525))
+
+    # right seperator
+    create_info_cards(screen,525,200)
+    Receive_Cards_Rects = create_info_rects(525,200)
+
+
+   #   UPDATING CURRENT AND OTHER PLAYER PROPERTY
+
+    for player_property in Cur_Mark:
+        if Cards[player_property].color == "RED":
+            color = RED
+        elif Cards[player_property].color == "GREEN":
+            color = GREEN
+        elif Cards[player_property].color == "BLUE":
+            color = BLUE
+        elif Cards[player_property].color == "YELLOW":
+            color = YELLOW
+        elif Cards[player_property].color == "BLACK":
+            color = BLACK
+        elif Cards[player_property].color == "BROWN":
+            color = BROWN
+        elif Cards[player_property].color == "LIGHT_BLUE":
+            color = LIGHT_BLUE
+        elif Cards[player_property].color == "PINK":
+            color = PINK
+        elif Cards[player_property].color == "ORANGE":
+            color = ORANGE
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Send_Cards_Rects[player_property].left,
+                          Send_Cards_Rects[player_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
+        
+
+    
+    for player_property in Other_Mark:
+        if Cards[player_property].color == "RED":
+            color = RED
+        elif Cards[player_property].color == "GREEN":
+            color = GREEN
+        elif Cards[player_property].color == "BLUE":
+            color = BLUE
+        elif Cards[player_property].color == "YELLOW":
+            color = YELLOW
+        elif Cards[player_property].color == "BLACK":
+            color = BLACK
+        elif Cards[player_property].color == "BROWN":
+            color = BROWN
+        elif Cards[player_property].color == "LIGHT_BLUE":
+            color = LIGHT_BLUE
+        elif Cards[player_property].color == "PINK":
+            color = PINK
+        elif Cards[player_property].color == "ORANGE":
+            color = ORANGE
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Receive_Cards_Rects[player_property].left,
+                          Receive_Cards_Rects[player_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
+        
+
+
+    # send amount box
+
+    pygame.draw.rect(screen,
+                     BLACK,
+                     ((405,500),
+                     (70,25)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
+    screen.blit(font.render('M ' + str(send_amount),True,WHITE),(410,505))
+
+
+    # receive amount box
+
+    pygame.draw.rect(screen,
+                     BLACK,
+                     ((525,500),
+                     (70,25)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
+    screen.blit(font.render('M ' + str(receive_amount),True,WHITE),(530,505))    
+    
+    
+
+    # buttons
+    
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((300,545),
+                      (100,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('OFFER',True,WHITE),(310,550))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((650,545),
+                      (100,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 22)
+    screen.blit(font.render('CANCEL',True,WHITE),(660,550))
+
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    offer = False
+
+    
+    while not start:
+
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # offer clicked
+                
+                if x >= 300 and x <= 400 and y >= 545 and y <= 545 + OPTION_HEIGHT:
+                    offer = True
+                    start = True
+
+                # cancel clicked
+
+                if x >= 650 and x <= 750 and y >= 545 and y <= 545 + OPTION_HEIGHT:
+                    offer = False
+                    start = True
+
+                # property selected
+
+                # send property
+
+                if x >= 200 and x <= 475 and y >= 200 and y <= 475:
+                    send_card = get_rect_pressed_index(mouse_pos,Send_Cards_Rects)
+
+                    if send_card < len(Send_Cards_Rects):
+                        send_prop.update([send_card])
+
+                # receive property
+                
+                if x >= 525 and x <= 800 and y >= 200 and y <= 475:
+                    receive_card = get_rect_pressed_index(mouse_pos,Receive_Cards_Rects)
+
+                    if receive_card < len(Receive_Cards_Rects):
+                        receive_prop.update([receive_card])
+
+
+
+                # amount entered
+
+                # send amount
+
+                if x >= 405 and x <= 475 and y >= 500 and y <= 525:
+                    amt_done = False
+                    while not amt_done:
+                        for evnt in pygame.event.get():
+                            if evnt.type == KEYDOWN:
+                                if evnt.unicode.isdigit and send_amount*10 + int(evnt.unicode) < Players[cur_player].cur_balance:
+                                    send_amount = send_amount*10 + int(evnt.unicode)
+                                elif evnt.key == K_BACKSPACE:
+                                    if send_amount != 0:
+                                        send_amount = (send_amount - (send_amount%10))//10
+                                elif evnt.key == K_RETURN:
+                                    if send_amount < Players[cur_player].cur_balance:
+                                        amt_done = True
+
+
+                        player = Players[cur_player]
+                        other = Players[other_player]
+
+                        Cur_Mark = []
+                        Other_Mark = []
+
+                        for prop in player.property_owned:
+                            Cur_Mark.append(prop)
+
+                        for prop in player.property_mortgaged:
+                            Cur_Mark.append(prop)
+
+                        for prop in other.property_owned:
+                            Other_Mark.append(prop)
+
+                        for prop in other.property_mortgaged:
+                            Other_Mark.append(prop)
+
+                        if Cur_Mark != None or Other_Mark != None:
+                            # adding static part
+                            
+                            screen.fill(BACKGROUND_COLOR)
+
+                            create_board(screen)
+
+                            create_game_options(screen)
+                            
+                            for player in Players:
+                                player.move_player(screen,player.cur_position)
+
+                            create_player_info(screen,Players,Cards,cur_player)
+                            
+                        display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,send_amount,receive_amount,send_prop,receive_prop)
+
+                        
+                            
+                # receive amount
+
+                if x >= 525 and x <= 595 and y >= 500 and y <= 525:
+
+                    amt_done = False
+
+                    while not amt_done:
+                        for evtn in pygame.event.get():
+                            if evtn.type == KEYDOWN:
+                                if evtn.unicode.isdigit and receive_amount*10 + int(evtn.unicode) < Players[other_player].cur_balance:
+                                    receive_amount = receive_amount*10 + int(evtn.unicode)
+                                elif evtn.key == K_BACKSPACE:
+                                    if receive_amount != 0:
+                                        receive_amount = (receive_amount - (receive_amount%10))//10
+                                elif evtn.key == K_RETURN:
+                                    if receive_amount < Players[other_player].cur_balance:
+                                        amt_done = True
+
+                        player = Players[cur_player]
+                        other = Players[other_player]
+
+                        Cur_Mark = []
+                        Other_Mark = []
+
+                        for prop in player.property_owned:
+                            Cur_Mark.append(prop)
+
+                        for prop in player.property_mortgaged:
+                            Cur_Mark.append(prop)
+
+                        for prop in other.property_owned:
+                            Other_Mark.append(prop)
+
+                        for prop in other.property_mortgaged:
+                            Other_Mark.append(prop)
+
+                        if Cur_Mark != None or Other_Mark != None:
+                            # adding static part
+                            
+                            screen.fill(BACKGROUND_COLOR)
+
+                            create_board(screen)
+
+                            create_game_options(screen)
+                            
+                            for player in Players:
+                                player.move_player(screen,player.cur_position)
+
+                            create_player_info(screen,Players,Cards,cur_player)
+
+                            
+                        display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,send_amount,receive_amount,send_prop,receive_prop)
+                
+                    
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
+    return offer,send_amount,send_prop,receive_amount,receive_prop
+
+
+
+
+
+# display window to allow other player to confirm trade infomation
+
+def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,receive_amount):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+
+    screen.blit(font.render('Trade',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+    y_start = ACTION_SCREEN_TOP + 30
+    receive_worth = receive_amount
+    
+    for receive_card in Receive_Cards:
+        screen.blit(font.render('' + str(receive_card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+        if receive_card.status == 1:
+            receive_worth += receive_card.cost
+        elif receive_card.status == 2:
+            receive_worth += receive_card.mortgage_value
+        y_start += 20
+
+
+    screen.blit(font.render('(Worth : ' + str(receive_worth) + ')',True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+    y_start += 20
+
+
+    screen.blit(font.render('For',True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+    y_start += 20
+
+    
+    send_worth = send_amount
+    
+    for send_card in Send_Cards:
+        screen.blit(font.render('' + str(send_card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+        if send_card.status == 1:
+            send_worth += send_card.cost
+        elif send_card.status == 2:
+            send_worth += send_card.mortgage_value
+        y_start += 20
+
+    screen.blit(font.render('(Worth : ' + str(send_worth) + ')',True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+
+
+    pygame.draw.rect(screen,
+                     BLUE,
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('TRADE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    trade_prop = False
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                start = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # unmortgage clicked
+
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    trade_prop = True
+                    start = True
+    
+    
+                # cancel clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                    trade_prop = False
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+    
+    return trade_prop
+
+   
 
