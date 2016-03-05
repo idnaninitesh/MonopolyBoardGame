@@ -40,7 +40,7 @@ def run_game():
     Players = []
 
     for i in range(0,no_of_players):
-        Players.append(Player(player_names[i],player_colors[i],1000))
+        Players.append(Player(player_names[i],player_colors[i],1500))
 
 
     # create initial board
