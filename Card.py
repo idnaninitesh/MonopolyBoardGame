@@ -5,6 +5,7 @@ class Card:
         self.id_no = id_no
         self.name = name
         self.color = color
+        self.img = 'img/' + str(id_no) + '.png'
         self.cost = cost
         self.rent = rent
         self.mortgage_value = mortgage_value
