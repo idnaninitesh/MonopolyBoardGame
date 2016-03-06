@@ -70,7 +70,7 @@ def update_game_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
 
             screen.fill(BACKGROUND_COLOR)
 
-            create_board(screen)
+            create_board(screen,Cards)
 
             create_game_options(screen)
             
@@ -96,7 +96,7 @@ def update_game_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
                 if card.hotel_built == 1:       # selling hotel
                     
                     player.cur_balance += (card.hotel_cost//2)
-                    card.hotel_built == 0
+                    card.hotel_built = 0
                 elif card.houses_built > 0:     # selling house
                     
                     player.cur_balance += (card.house_cost//2)
@@ -148,7 +148,7 @@ def update_game_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
                     
                     screen.fill(BACKGROUND_COLOR)
 
-                    create_board(screen)
+                    create_board(screen,Cards)
 
                     create_game_options(screen)
 
@@ -179,7 +179,7 @@ def update_game_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
                 
                 screen.fill(BACKGROUND_COLOR)
 
-                create_board(screen)
+                create_board(screen,Cards)
 
                 create_game_options(screen)
 
