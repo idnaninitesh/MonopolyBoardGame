@@ -23,7 +23,7 @@ def handle_mortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Inf
 
     screen.fill(BACKGROUND_COLOR)
 
-    create_board(screen)
+    create_board(screen,Cards)
 
     create_game_options(screen)
 
@@ -49,7 +49,7 @@ def handle_mortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Inf
 
     screen.fill(BACKGROUND_COLOR)
 
-    create_board(screen)
+    create_board(screen,Cards)
 
     create_game_options(screen)
 
