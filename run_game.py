@@ -43,14 +43,16 @@ def run_game():
         Players.append(Player(player_names[i],player_colors[i],1500))
 
 
-    # create initial board
-
-    create_board(screen)
-
-    # rolls dice and places them at random position with 4 and 2 number in 1st and 2nd die respectively
-    roll_dice(screen,4,2)           # Since 42 is the answer to everything :)
 
     Cards,Cards_Rects = create_card_rects()
+
+    # create initial board
+
+    create_board(screen,Cards)
+
+    # rolls dice and places them at random position with 4 and 2 number in 1st and 2nd die respectively
+    no1,no2,dice1_cord,dice2_cord = roll_dice(screen,4,2)           # Since 42 is the answer to everything :)
+
 
     # placing the game pieces at the start position for each player
 
@@ -104,6 +106,11 @@ def run_game():
     Info_Cards_Rects = create_info_rects()
 
         
+    # adding music
+
+    sound = pygame.mixer.Sound("game.ogg")
+    sound.play(loops = -1)
+
     # START GAME PROMPT
 
     done = display_start_game_window(screen,Players,Cards,cur_player)
@@ -154,9 +161,180 @@ def run_game():
                             isRunning = True
                             cur_player,isRunning = handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,isRunning)
                 
+            elif event.type == pygame.MOUSEMOTION:
+
+                # check inputs
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                # handle inputs
+
+                Rects = get_rect_pressed_type(mouse_pos,Cards_Rects,Option_Rects,Info_Cards_Rects)
+                if Rects != None:
+
+                    # rects is option,info or board
+                    
+                    rect_index = get_rect_pressed_index(mouse_pos,Rects)
+
+                    # take necessary action based on the rect that was hovered in the game
+
+                    if Rects == Option_Rects and rect_index < len(Rects):
+
+                        screen.fill(BACKGROUND_COLOR)
+
+                        create_board(screen,Cards)
+
+                        roll_dice(screen,4,2,dice1_cord,dice2_cord)
+
+                        create_game_options(screen)
+                        
+                        for player in Players:
+                            player.move_player(screen,player.cur_position)
+                        
+                        create_player_info(screen,Players,Cards,cur_player)
 
 
-        
+                        pygame.draw.rect(screen,
+                                         LIGHT_BLUE,
+                                         ((Rects[rect_index].left,
+                                          Rects[rect_index].top),
+                                         (Rects[rect_index].width,
+                                          Rects[rect_index].height)))
+
+                        if rect_index == 0:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('ROLL DICE', True, WHITE), (50, 800))
+
+                        elif rect_index == 1:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('BUILD', True, WHITE), (230, 800))
+
+                        elif rect_index == 2:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('TRADE', True, WHITE), (390, 800))
+
+                        elif rect_index == 3:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('SELL', True, WHITE), (560, 800))
+
+                        elif rect_index == 4:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('MORTGAGE', True, WHITE), (685, 800))
+
+                        elif rect_index == 5:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 15)
+                            font.set_bold(True)
+                            screen.blit(font.render('UNMORTGAGE', True, WHITE), (845, 800))
+
+                        elif rect_index == 6:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('RULES(?)', True, WHITE), (1140, 800))
+
+                        elif rect_index == 7:
+                            
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
+                            font.set_bold(True)
+                            screen.blit(font.render('QUIT GAME', True, WHITE), (1290, 800))
+
+
+                        pygame.display.update()
+                            
+            
+                    elif Rects == Cards_Rects and rect_index < len(Rects):
+
+                        screen.fill(BACKGROUND_COLOR)
+
+                        create_board(screen,Cards)
+
+                        roll_dice(screen,4,2,dice1_cord,dice2_cord)
+
+                        create_game_options(screen)
+                        
+                        for player in Players:
+                            player.move_player(screen,player.cur_position)
+                        
+                        create_player_info(screen,Players,Cards,cur_player)
+
+                        pygame.gfxdraw.box(screen,
+                                           ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                                            (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+                        propImg = pygame.image.load(Cards[rect_index].img)
+                        propImg = pygame.transform.scale(propImg,(240,280))
+                        screen.blit(propImg,(410,240))
+
+
+
+                    elif Rects == Info_Cards_Rects and rect_index < len(Rects) and Rects[rect_index] != None:
+
+                        screen.fill(BACKGROUND_COLOR)
+
+                        create_board(screen,Cards)
+
+                        roll_dice(screen,4,2,dice1_cord,dice2_cord)
+
+                        create_game_options(screen)
+                        
+                        for player in Players:
+                            player.move_player(screen,player.cur_position)
+                        
+                        create_player_info(screen,Players,Cards,cur_player)
+                        
+                        pygame.gfxdraw.box(screen,
+                                           ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                                            (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+
+                        propImg = pygame.image.load(Cards[rect_index].img)
+                        propImg = pygame.transform.scale(propImg,(240,280))
+                        screen.blit(propImg,(410,240))
+
+                    else:
+                    
+                        screen.fill(BACKGROUND_COLOR)
+                        
+                        create_board(screen,Cards)
+
+                        roll_dice(screen,4,2,dice1_cord,dice2_cord)
+
+                        create_game_options(screen)
+                        
+                        for player in Players:
+                            player.move_player(screen,player.cur_position)
+                        
+                        create_player_info(screen,Players,Cards,cur_player)
+
+
+
+                else:
+                
+                    screen.fill(BACKGROUND_COLOR)
+                    
+                    create_board(screen,Cards)
+
+                    roll_dice(screen,4,2,dice1_cord,dice2_cord)
+
+                    create_game_options(screen)
+                    
+                    for player in Players:
+                        player.move_player(screen,player.cur_position)
+                    
+                    create_player_info(screen,Players,Cards,cur_player)
+
+            
+    
 
         clock.tick(60)
 
