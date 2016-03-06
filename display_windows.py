@@ -76,7 +76,7 @@ def display_start_game_window(screen,Players,Cards,cur_player):
                     
                     screen.fill(BACKGROUND_COLOR)
     
-                    create_board(screen)
+                    create_board(screen,Cards)
         
                     create_game_options(screen)
 
@@ -109,7 +109,7 @@ def display_start_game_window(screen,Players,Cards,cur_player):
 
 #display window to inform payment of rent
 
-def display_rent_payment_window(screen,rent,prop_holder):
+def display_rent_payment_window(screen,rent,player,prop_holder):
     
 
     pygame.gfxdraw.box(screen,
@@ -117,7 +117,56 @@ def display_rent_payment_window(screen,rent,prop_holder):
                         (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('Pay M ' + str(rent) + ' to ' + str(prop_holder.name),True,WHITE),(ACTION_SCREEN_LEFT + 150,ACTION_SCREEN_TOP + 60))
+    screen.blit(font.render('Pay Rent',True,WHITE),(ACTION_SCREEN_LEFT + 185,ACTION_SCREEN_TOP + 30))
+    screen.blit(font.render('$ ' + str(rent),True,WHITE),(ACTION_SCREEN_LEFT + 215,ACTION_SCREEN_TOP + 50))
+
+    screen.blit(font.render('' + player.name,True,WHITE),(ACTION_SCREEN_LEFT + 135,ACTION_SCREEN_TOP + 140))
+
+    color = WHITE
+    
+    if player.color == "RED":
+        color = RED
+    elif player.color == "GREEN":
+        color = GREEN
+    elif player.color == "BLUE":
+        color = BLUE
+    elif player.color == "YELLOW":
+        color = YELLOW
+    else:
+        color = WHITE
+
+    pygame.draw.rect(screen,
+                     color,
+                     ((ACTION_SCREEN_LEFT + 135,
+                      ACTION_SCREEN_TOP + 170),
+                      (50,
+                       50)))
+
+
+    pygame.draw.polygon(screen, BOARD_GREEN, [[515, 390], [515, 420], [545, 405]])
+
+
+    screen.blit(font.render('' + prop_holder.name,True,WHITE),(ACTION_SCREEN_LEFT + 275,ACTION_SCREEN_TOP + 140))
+    
+    color = WHITE
+    
+    if prop_holder.color == "RED":
+        color = RED
+    elif prop_holder.color == "GREEN":
+        color = GREEN
+    elif prop_holder.color == "BLUE":
+        color = BLUE
+    elif prop_holder.color == "YELLOW":
+        color = YELLOW
+    else:
+        color = WHITE
+
+    pygame.draw.rect(screen,
+                     color,
+                     ((ACTION_SCREEN_LEFT + 275,
+                      ACTION_SCREEN_TOP + 170),
+                      (50,
+                       50)))
 
 
     pygame.display.update()
@@ -177,7 +226,7 @@ def display_jail_card_window(screen):
                       (OPTION_WIDTH,OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('USE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+    screen.blit(font.render('USE CARD',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
 
 
     pygame.draw.rect(screen,
@@ -243,28 +292,32 @@ def display_buy_property_window(screen,final_card,Players,Cards,cur_player):
                         (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('BUY ' + str(Cards[final_card].name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-    screen.blit(font.render('COST : M ' + str(Cards[final_card].cost),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+    screen.blit(font.render('FOR SALE ',True,WHITE),(ACTION_SCREEN_LEFT + 180,ACTION_SCREEN_TOP + 5))
+    screen.blit(font.render('COST : $ ' + str(Cards[final_card].cost),True,WHITE),(ACTION_SCREEN_LEFT + 160,ACTION_SCREEN_TOP + 25))
+
+    propImg = pygame.image.load(Cards[final_card].img)
+    propImg = pygame.transform.scale(propImg,(160,240))
+    screen.blit(propImg,(ACTION_SCREEN_LEFT + 150,ACTION_SCREEN_TOP + 50))
 
 
     pygame.draw.rect(screen,
                      BLUE,
-                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN),
+                     ((ACTION_SCREEN_LEFT + OPTION_MARGIN,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - 5),
                       (OPTION_WIDTH,OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('BUY',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+    screen.blit(font.render('BUY',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT))
 
 
     pygame.draw.rect(screen,
                      RED,
-                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - OPTION_MARGIN),
+                     ((760 - OPTION_WIDTH - OPTION_MARGIN,550 - OPTION_HEIGHT - 5),
                       (OPTION_WIDTH,OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN + 5))
+    screen.blit(font.render('CANCEL',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN + 10,ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT))
 
-
+# 260 to 500
     clock = pygame.time.Clock()
 
     start = False
@@ -286,14 +339,14 @@ def display_buy_property_window(screen,final_card,Players,Cards,cur_player):
 
                 # buy clicked
 
-                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - 5 and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - 5:
                     buy_prop = True
                     start = True
     
     
                 # cancel clicked
 
-                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - OPTION_MARGIN and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_MARGIN:
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - OPTION_HEIGHT - 5 and y <= ACTION_SCREEN_TOP + ACTION_SCREEN_HEIGHT - 5:
                     buy_prop = False
                     start = True
 
@@ -453,6 +506,8 @@ def display_chance_window(screen,card):
                        ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
                         (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
 
+    """
+
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
 
     if card == 1:
@@ -495,6 +550,12 @@ def display_chance_window(screen,card):
         screen.blit(font.render(' - collect $100',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 70))
 
 
+    """
+    chanceImg = pygame.image.load('img/chance' + str(card) + '.png')
+    propImg = pygame.transform.scale(chanceImg,(400,300))
+    screen.blit(chanceImg,(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 20))
+
+
     pygame.display.update()
     pygame.time.delay(ACTION_SCREEN_DELAY)
 
@@ -510,6 +571,7 @@ def display_community_window(screen,card):
                        ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
                         (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
 
+    """
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
 
     if card == 1:
@@ -553,7 +615,13 @@ def display_community_window(screen,card):
         screen.blit(font.render('From sale of stock you get $50',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
     elif card == 17:
         screen.blit(font.render('Holiday Fund matures - Receive $100',True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 30))
-                    
+
+    """
+
+    commImg = pygame.image.load('img/comm' + str(card) + '.png')
+    propImg = pygame.transform.scale(commImg,(400,300))
+    screen.blit(commImg,(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 20))
+
 
 
     pygame.display.update()
@@ -667,6 +735,26 @@ def display_build_window(screen,Players,Cards,cur_player,Mark):
                           Build_Cards_Rects[player_property].top),
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
+        
+
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Build_Cards_Rects[player_property].left + 12,Build_Cards_Rects[player_property].top + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Build_Cards_Rects[player_property].left + 7,Build_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen,Build_Cards_Rects[player_property].left + 18,Build_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen,Build_Cards_Rects[player_property].left + 18,Build_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Build_Cards_Rects[player_property].left + 7,Build_Cards_Rects[player_property].top + 18, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen,Build_Cards_Rects[player_property].left + 18,Build_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Build_Cards_Rects[player_property].left + 7,Build_Cards_Rects[player_property].top + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Build_Cards_Rects[player_property].left + 18,Build_Cards_Rects[player_property].top + 18, 3, BLACK)
+            
 
     
 
@@ -708,6 +796,21 @@ def display_build_window(screen,Players,Cards,cur_player,Mark):
                     build_card = get_rect_pressed_index(mouse_pos,Build_Cards_Rects)
                     if build_card < len(Build_Cards_Rects):
                         start = True
+            elif event.type == pygame.MOUSEMOTION:
+
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                build_card = get_rect_pressed_index(mouse_pos,Build_Cards_Rects)
+                if build_card < len(Build_Cards_Rects) and build_card in Mark:
+                    
+                    propImg = pygame.image.load(Cards[build_card].img)
+                    propImg = pygame.transform.scale(propImg,(160,210))
+                    screen.blit(propImg,(ACTION_SCREEN_LEFT + 150,285))
+                    
+                
                     
 
 
@@ -738,7 +841,7 @@ def display_build_confirm_window(screen,card):
         screen.blit(font.render('Build HOTEL on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
     else:
         screen.blit(font.render('Build HOUSE on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
-    screen.blit(font.render('COST : M ' + str(card.house_cost),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+    screen.blit(font.render('COST : $ ' + str(card.house_cost),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
 
 
@@ -851,6 +954,25 @@ def display_sell_window(screen,Players,Cards,cur_player,Mark):
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
 
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Sell_Cards_Rects[player_property].left + 12,Sell_Cards_Rects[player_property].top + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Sell_Cards_Rects[player_property].left + 7,Sell_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen,Sell_Cards_Rects[player_property].left + 18,Sell_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen,Sell_Cards_Rects[player_property].left + 18,Sell_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Sell_Cards_Rects[player_property].left + 7,Sell_Cards_Rects[player_property].top + 18, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen,Sell_Cards_Rects[player_property].left + 18,Sell_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Sell_Cards_Rects[player_property].left + 7,Sell_Cards_Rects[player_property].top + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Sell_Cards_Rects[player_property].left + 18,Sell_Cards_Rects[player_property].top + 18, 3, BLACK)
+            
+
     
 
 
@@ -891,6 +1013,20 @@ def display_sell_window(screen,Players,Cards,cur_player,Mark):
                     sell_card = get_rect_pressed_index(mouse_pos,Sell_Cards_Rects)
                     if sell_card < len(Sell_Cards_Rects):
                         start = True
+            elif event.type == pygame.MOUSEMOTION:
+
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                sell_card = get_rect_pressed_index(mouse_pos,Sell_Cards_Rects)
+                if sell_card < len(Sell_Cards_Rects) and sell_card in Mark:
+                    
+                    propImg = pygame.image.load(Cards[sell_card].img)
+                    propImg = pygame.transform.scale(propImg,(160,210))
+                    screen.blit(propImg,(ACTION_SCREEN_LEFT + 150,285))
+                    
                     
 
 
@@ -920,14 +1056,14 @@ def display_sell_confirm_window(screen,card):
 
     if card.hotel_built == 1:
         screen.blit(font.render('Sell HOTEL on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
-        screen.blit(font.render('RETURN VALUE : M ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+        screen.blit(font.render('RETURN VALUE : $ ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
     elif card.houses_built > 0:
         screen.blit(font.render('Sell HOUSE on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
-        screen.blit(font.render('RETURN VALUE : M ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+        screen.blit(font.render('RETURN VALUE : $ ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
     else:
         screen.blit(font.render('Sell Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
-        screen.blit(font.render('RETURN VALUE : M ' + str(int(card.cost*0.9)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+        screen.blit(font.render('RETURN VALUE : $ ' + str(int(card.cost*0.9)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
 
 
@@ -1042,7 +1178,25 @@ def display_mortgage_window(screen,Players,Cards,cur_player,Mark):
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
 
-    
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Mortgage_Cards_Rects[player_property].left + 12,Mortgage_Cards_Rects[player_property].top + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Mortgage_Cards_Rects[player_property].left + 7,Mortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen,Mortgage_Cards_Rects[player_property].left + 18,Mortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen,Mortgage_Cards_Rects[player_property].left + 18,Mortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Mortgage_Cards_Rects[player_property].left + 7,Mortgage_Cards_Rects[player_property].top + 18, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen,Mortgage_Cards_Rects[player_property].left + 18,Mortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Mortgage_Cards_Rects[player_property].left + 7,Mortgage_Cards_Rects[player_property].top + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Mortgage_Cards_Rects[player_property].left + 18,Mortgage_Cards_Rects[player_property].top + 18, 3, BLACK)
+            
+   
 
 
     pygame.draw.rect(screen,
@@ -1082,6 +1236,20 @@ def display_mortgage_window(screen,Players,Cards,cur_player,Mark):
                     mortgage_card = get_rect_pressed_index(mouse_pos,Mortgage_Cards_Rects)
                     if mortgage_card < len(Mortgage_Cards_Rects):
                         start = True
+            elif event.type == pygame.MOUSEMOTION:
+
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                mortgage_card = get_rect_pressed_index(mouse_pos,Mortgage_Cards_Rects)
+                if mortgage_card < len(Mortgage_Cards_Rects) and mortgage_card in Mark:
+                    
+                    propImg = pygame.image.load(Cards[mortgage_card].img)
+                    propImg = pygame.transform.scale(propImg,(160,210))
+                    screen.blit(propImg,(ACTION_SCREEN_LEFT + 150,285))
+                    
                     
 
 
@@ -1109,7 +1277,7 @@ def display_mortgage_confirm_window(screen,card):
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
 
     screen.blit(font.render('Mortgage Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
-    screen.blit(font.render('RETURN VALUE : M ' + str(card.mortgage_value),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+    screen.blit(font.render('RETURN VALUE : $ ' + str(card.mortgage_value),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
 
 
@@ -1226,7 +1394,25 @@ def display_unmortgage_window(screen,Players,Cards,cur_player,Mark):
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
 
-    
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Unmortgage_Cards_Rects[player_property].left + 12,Unmortgage_Cards_Rects[player_property].top + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Unmortgage_Cards_Rects[player_property].left + 7,Unmortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen,Unmortgage_Cards_Rects[player_property].left + 18,Unmortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen,Unmortgage_Cards_Rects[player_property].left + 18,Unmortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Unmortgage_Cards_Rects[player_property].left + 7,Unmortgage_Cards_Rects[player_property].top + 18, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen,Unmortgage_Cards_Rects[player_property].left + 18,Unmortgage_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Unmortgage_Cards_Rects[player_property].left + 7,Unmortgage_Cards_Rects[player_property].top + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Unmortgage_Cards_Rects[player_property].left + 18,Unmortgage_Cards_Rects[player_property].top + 18, 3, BLACK)
+            
+ 
 
 
     pygame.draw.rect(screen,
@@ -1266,6 +1452,20 @@ def display_unmortgage_window(screen,Players,Cards,cur_player,Mark):
                     unmortgage_card = get_rect_pressed_index(mouse_pos,Unmortgage_Cards_Rects)
                     if unmortgage_card < len(Unmortgage_Cards_Rects):
                         start = True
+            elif event.type == pygame.MOUSEMOTION:
+
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                unmortgage_card = get_rect_pressed_index(mouse_pos,Unmortgage_Cards_Rects)
+                if unmortgage_card < len(Unmortgage_Cards_Rects) and unmortgage_card in Mark:
+                    
+                    propImg = pygame.image.load(Cards[unmortgage_card].img)
+                    propImg = pygame.transform.scale(propImg,(160,210))
+                    screen.blit(propImg,(ACTION_SCREEN_LEFT + 150,285))
+                    
                     
 
 
@@ -1293,7 +1493,7 @@ def display_unmortgage_confirm_window(screen,card):
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
 
     screen.blit(font.render('Unmortgage Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
-    screen.blit(font.render('COST : M ' + str(int(card.mortgage_value*1.1)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+    screen.blit(font.render('COST : $ ' + str(int(card.mortgage_value*1.1)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
 
 
@@ -1537,7 +1737,7 @@ def display_select_trade_player_window(screen,Players,Cards,cur_player):
     
             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
             screen.blit(font.render('' + player.name, True, color), (rect_x + 20,rect_y + 10))
-            screen.blit(font.render('M ' + str(player.cur_balance), True, color), (rect_x + 280,rect_y + 10))
+            screen.blit(font.render('$ ' + str(player.cur_balance), True, color), (rect_x + 280,rect_y + 10))
 
             Player_Boundary.append((rect_x,rect_y))
 
@@ -1613,13 +1813,15 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
 
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
-    screen.blit(font.render('TRADE WINDOW',True,WHITE),(450,170))
+    screen.blit(font.render('TRADE WINDOW',True,WHITE),(400,170))
 
 
     # left cards
     
     create_info_cards(screen,200,200)
     Send_Cards_Rects = create_info_rects(200,200)
+
+    screen.blit(font.render('' + Players[cur_player].name,True,WHITE),(330,170))
 
     # seperator
     pygame.draw.line(screen, WHITE, (500,200), (500,525))
@@ -1628,6 +1830,7 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
     create_info_cards(screen,525,200)
     Receive_Cards_Rects = create_info_rects(525,200)
 
+    screen.blit(font.render('' + Players[other_player].name,True,WHITE),(655,170))
 
    #   UPDATING CURRENT AND OTHER PLAYER PROPERTY
 
@@ -1659,7 +1862,26 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                           Send_Cards_Rects[player_property].top),
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
-        
+
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 12,Send_Cards_Rects[player_property].top + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 7,Send_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen,Send_Cards_Rects[player_property].left + 18,Send_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen,Send_Cards_Rects[player_property].left + 18,Send_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 7,Send_Cards_Rects[player_property].top + 18, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen,Send_Cards_Rects[player_property].left + 18,Send_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 7,Send_Cards_Rects[player_property].top + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 18,Send_Cards_Rects[player_property].top + 18, 3, BLACK)
+            
+
 
     
     for player_property in Other_Mark:
@@ -1691,6 +1913,24 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
         
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 12,Receive_Cards_Rects[player_property].top + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 7,Receive_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen,Receive_Cards_Rects[player_property].left + 18,Receive_Cards_Rects[player_property].top + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen,Receive_Cards_Rects[player_property].left + 18,Receive_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 7,Receive_Cards_Rects[player_property].top + 15, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen,Receive_Cards_Rects[player_property].left + 18,Receive_Cards_Rects[player_property].top + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 7,Receive_Cards_Rects[player_property].top + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 18,Receive_Cards_Rects[player_property].top + 18, 3, BLACK)
+            
 
 
     # send amount box
@@ -1701,7 +1941,7 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                      (70,25)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
-    screen.blit(font.render('M ' + str(send_amount),True,WHITE),(410,505))
+    screen.blit(font.render('$ ' + str(send_amount),True,WHITE),(410,505))
 
 
     # receive amount box
@@ -1712,7 +1952,7 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                      (70,25)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
-    screen.blit(font.render('M ' + str(receive_amount),True,WHITE),(530,505))    
+    screen.blit(font.render('$ ' + str(receive_amount),True,WHITE),(530,505))    
     
     
 
@@ -1813,7 +2053,7 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                                          (70,25)))
 
                         font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
-                        screen.blit(font.render('M ' + str(send_amount),True,WHITE),(410,505))
+                        screen.blit(font.render('$ ' + str(send_amount),True,WHITE),(410,505))
 
                         pygame.display.update()
 
@@ -1845,11 +2085,41 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                                          (70,25)))
 
                         font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
-                        screen.blit(font.render('M ' + str(receive_amount),True,WHITE),(530,505))    
+                        screen.blit(font.render('$ ' + str(receive_amount),True,WHITE),(530,505))    
                         
                         pygame.display.update()
                     
-        
+            elif event.type == pygame.MOUSEMOTION:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # property selected
+
+                # send property
+
+                if x >= 200 and x <= 475 and y >= 200 and y <= 475:
+                    send_card = get_rect_pressed_index(mouse_pos,Send_Cards_Rects)
+
+                    if send_card < len(Send_Cards_Rects) and send_card in Cur_Mark:
+                    
+                        propImg = pygame.image.load(Cards[send_card].img)
+                        propImg = pygame.transform.scale(propImg,(160,210))
+                        screen.blit(propImg,(260,235))
+
+                # receive property
+                
+                if x >= 525 and x <= 800 and y >= 200 and y <= 475:
+                    receive_card = get_rect_pressed_index(mouse_pos,Receive_Cards_Rects)
+
+                    if receive_card < len(Receive_Cards_Rects) and receive_card in Other_Mark:
+                            
+                        propImg = pygame.image.load(Cards[receive_card].img)
+                        propImg = pygame.transform.scale(propImg,(160,210))
+                        screen.blit(propImg,(585,235))
+
 
         clock.tick(60)
 
@@ -1890,7 +2160,7 @@ def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,rec
 
 
     if receive_amount != 0:
-        screen.blit(font.render('M ' + str(receive_amount),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+        screen.blit(font.render('$ ' + str(receive_amount),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
         y_start += 20
 
 
@@ -1914,7 +2184,7 @@ def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,rec
 
 
     if send_amount != 0:
-        screen.blit(font.render('M ' + str(send_amount),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
+        screen.blit(font.render('$ ' + str(send_amount),True,WHITE),(ACTION_SCREEN_LEFT + 20,y_start))
         y_start += 20
 
 
