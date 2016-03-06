@@ -1,5 +1,6 @@
 import pygame
 import sys
+import pygame.gfxdraw
 from pygame.locals import *
 
 from variables import *
@@ -42,7 +43,7 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     screen.blit(font.render('' + player.name, True, color), (1155, 55))
-    screen.blit(font.render('M ' + str(player.cur_balance), True, color), (1350, 55))
+    screen.blit(font.render('$ ' + str(player.cur_balance), True, color), (1350, 55))
 
 
     # PLAYER INFO
@@ -87,7 +88,7 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
     
             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
             screen.blit(font.render('' + player.name, True, color), (name_x, y))
-            screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
+            screen.blit(font.render('$ ' + str(player.cur_balance), True, color), (amt_x, y))
     
             j = j + 1
             k = k + 1
@@ -118,7 +119,7 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
     
             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
             screen.blit(font.render('' + player.name, True, color), (name_x, y))
-            screen.blit(font.render('M ' + str(player.cur_balance), True, color), (amt_x, y))
+            screen.blit(font.render('$ ' + str(player.cur_balance), True, color), (amt_x, y))
     
             j = j + 1
             k = k + 1
@@ -154,6 +155,25 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
                          (Cards[player_property].info_pos,
                           (INFO_CARD_WIDTH,
                            INFO_CARD_HEIGHT)))
+
+        if Cards[player_property].hotel_built == 1:
+            pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 12,Cards[player_property].info_pos[1] + 12, 5, BLACK)
+        elif Cards[player_property].houses_built > 0:
+
+            pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 7,Cards[player_property].info_pos[1] + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 2:
+                pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 18,Cards[player_property].info_pos[1] + 7, 3, BLACK)
+
+            if Cards[player_property].houses_built == 3:
+                pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 18,Cards[player_property].info_pos[1] + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 7,Cards[player_property].info_pos[1] + 18, 3, BLACK)
+
+            if Cards[player_property].houses_built == 4:
+                pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 18,Cards[player_property].info_pos[1] + 7, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 7,Cards[player_property].info_pos[1] + 18, 3, BLACK)
+                pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 18,Cards[player_property].info_pos[1] + 18, 3, BLACK)
+            
 
     
         
