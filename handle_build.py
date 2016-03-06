@@ -22,7 +22,7 @@ def handle_build(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_C
     
     screen.fill(BACKGROUND_COLOR)
 
-    create_board(screen)
+    create_board(screen,Cards)
 
     create_game_options(screen)
 
@@ -51,7 +51,7 @@ def handle_build(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_C
 
     screen.fill(BACKGROUND_COLOR)
 
-    create_board(screen)
+    create_board(screen,Cards)
 
     create_game_options(screen)
 
