@@ -26,7 +26,7 @@ def handle_quit(screen,Players,Cards,cur_player):
 
         screen.fill(BACKGROUND_COLOR)
 
-        create_board(screen)
+        create_board(screen,Cards)
 
         create_game_options(screen)
 
