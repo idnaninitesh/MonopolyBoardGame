@@ -22,7 +22,7 @@ def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
     
     screen.fill(BACKGROUND_COLOR)
 
-    create_board(screen)
+    create_board(screen,Cards)
 
     create_game_options(screen)
 
@@ -31,8 +31,8 @@ def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
 
     # rolling dice
     
-    no1,no2 = roll_dice(screen)
-    steps = no1 + no2
+    no1,no2,a,b = roll_dice(screen)
+    steps = int(no1) + int(no2)
 
     player = Players[cur_player]
 
@@ -106,7 +106,7 @@ def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
 
         screen.fill(BACKGROUND_COLOR)
 
-        create_board(screen)
+        create_board(screen,Cards)
 
         create_game_options(screen)
         
@@ -144,7 +144,7 @@ def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
 
             screen.fill(BACKGROUND_COLOR)
 
-            create_board(screen)
+            create_board(screen,Cards)
 
             create_game_options(screen)
             
@@ -160,7 +160,7 @@ def handle_dice_roll(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,In
 
     screen.fill(BACKGROUND_COLOR)
 
-    create_board(screen)
+    create_board(screen,Cards)
 
     create_game_options(screen)
 
