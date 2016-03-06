@@ -54,7 +54,7 @@ def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,O
             
             screen.fill(BACKGROUND_COLOR)
 
-            create_board(screen)
+            create_board(screen,Cards)
 
             create_game_options(screen)
             
@@ -212,7 +212,7 @@ def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,O
                     
                     screen.fill(BACKGROUND_COLOR)
 
-                    create_board(screen)
+                    create_board(screen,Cards)
 
                     create_game_options(screen)
                     
@@ -251,7 +251,7 @@ def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,O
                 
                 screen.fill(BACKGROUND_COLOR)
 
-                create_board(screen)
+                create_board(screen,Cards)
 
                 create_game_options(screen)
                 
