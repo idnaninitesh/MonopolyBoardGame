@@ -53,7 +53,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
 
         screen.fill(BACKGROUND_COLOR)
 
-        create_board(screen)
+        create_board(screen,Cards)
 
         create_game_options(screen)
 
@@ -78,7 +78,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             
             screen.fill(BACKGROUND_COLOR)
 
-            create_board(screen)
+            create_board(screen,Cards)
 
             create_game_options(screen)
 
@@ -101,7 +101,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             
             screen.fill(BACKGROUND_COLOR)
 
-            create_board(screen)
+            create_board(screen,Cards)
 
             create_game_options(screen)
 
@@ -126,7 +126,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
 
             screen.fill(BACKGROUND_COLOR)
 
-            create_board(screen)
+            create_board(screen,Cards)
 
             create_game_options(screen)
 
@@ -268,7 +268,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
                     if Cards[final_card].hotel_built > 0:
                         rent = Cards[final_card].hotel_rent
                     
-                display_rent_payment_window(screen,rent,prop_holder)
+                display_rent_payment_window(screen,rent,player,prop_holder)
 
                 if player.cur_balance > rent:
                     player.cur_balance -= rent
@@ -390,17 +390,15 @@ def execute_chance(screen,final_card,Players,Cards,cur_player):
 4) Get out of jail free – this card may be kept until needed, or sold 
 5) Go to jail – go directly to jail – Do not pass Go, do not collect $200 
 6) It is your birthday Collect $10 from each player 
-7) Grand Opera Night – collect $50 from every player for opening night seats 
-8) Income Tax refund – collect $20 
-9) Life Insurance Matures – collect $100 
-10) Pay Hospital Fees of $100 
-11) Pay School Fees of $50 
-12) Receive $25 Consultancy Fee 
-13) You are assessed for street repairs – $40 per house, $115 per hotel 
-14) You have won second prize in a beauty contest– collect $10 
-15) You inherit $100 
-16) From sale of stock you get $50 
-17) Holiday Fund matures - Receive $100
+7) Income Tax refund – collect $20 
+8) Life Insurance Matures – collect $100 
+9) Pay Hospital Fees of $100 
+10) Pay School Fees of $150 
+11) You are assessed for street repairs – $40 per house, $115 per hotel 
+12) You have won second prize in a beauty contest– collect $10 
+13) You inherit $100 
+14) From sale of stock you get $45 
+15) Xmas Fund matures - Receive $100
 
 """
 
@@ -437,34 +435,22 @@ def execute_community(screen,final_card,Players,Cards,cur_player):
 
                 player.cur_balance += 10
     elif card == 7:
-        for temp in Players:
-            if player != temp:
-                if temp.cur_balance > 50:
-                    temp.cur_balance -= 50
-                else:
-                    temp.cur_balance -= 50
-                    temp.isBankrupt = True
-
-                player.cur_balance += 50
-    elif card == 8:
         player.cur_balance += 20
-    elif card == 9:
+    elif card == 8:
         player.cur_balance += 100
-    elif card == 10:
+    elif card == 9:
         if player.cur_balance > 100:
             player.cur_balance -= 100
         else:
             player.cur_balance -= 100
             player.isBankrupt = True
-    elif card == 11:
-        if player.cur_balance > 50:
-            player.cur_balance -= 50
+    elif card == 10:
+        if player.cur_balance > 150:
+            player.cur_balance -= 150
         else:
-            player.cur_balance -= 50
+            player.cur_balance -= 150
             player.isBankrupt = True
-    elif card == 12:
-        player.cur_balance += 125
-    elif card == 13:
+    elif card == 11:
         for prop in player.property_owned:
             if Cards[prop].hotel_built > 0:
                 if player.cur_balance > 115:
@@ -478,13 +464,13 @@ def execute_community(screen,final_card,Players,Cards,cur_player):
                 else:
                     player.cur_balance -= 40 * Cards[prop].houses_built
                     player.isBankrupt = True
-    elif card == 14:
+    elif card == 12:
         player.cur_balance += 10
-    elif card == 15:
+    elif card == 13:
         player.cur_balance += 100
-    elif card == 16:
-        player.cur_balance += 50
-    elif card == 17:
+    elif card == 14:
+        player.cur_balance += 45
+    elif card == 15:
         player.cur_balance += 100
 
 
