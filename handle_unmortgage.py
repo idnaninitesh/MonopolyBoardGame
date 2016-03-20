@@ -39,8 +39,7 @@ def handle_unmortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,I
 
     player = Players[cur_player]
 
-    for prop in player.property_mortgaged:
-        Mark.append(prop)
+    Mark.extend(player.property_mortgaged)
 
     if Mark != []:
         update_game_unmortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Mark)
