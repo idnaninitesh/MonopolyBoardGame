@@ -17,111 +17,124 @@ def create_game_options(screen):
     #   ROLL DICE
     pygame.draw.rect(screen,
                      color,
-                     ((OPTION_MARGIN + OPTION_BOARD_SPACING,
+                     ((OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     font.set_bold(True)
-    screen.blit(font.render('ROLL DICE', True, WHITE), (50, 800))
+    screen.blit(font.render('ROLL DICE', True, WHITE), (22, 800))
 
 
 
     #   BUILD
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 1 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 1 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     font.set_bold(True)
-    screen.blit(font.render('BUILD', True, WHITE), (230, 800))
+    screen.blit(font.render('BUILD', True, WHITE), (205, 800))
 
 
 
     #   TRADE
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 2 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 2 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     font.set_bold(True)
-    screen.blit(font.render('TRADE', True, WHITE), (390, 800))
+    screen.blit(font.render('TRADE', True, WHITE), (365, 800))
 
 
     #   SELL
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 3 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 3 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     font.set_bold(True)
-    screen.blit(font.render('SELL', True, WHITE), (560, 800))
+    screen.blit(font.render('SELL', True, WHITE), (535, 800))
 
 
 
     #   MORTGAGE
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 4 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 4 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     font.set_bold(True)
-    screen.blit(font.render('MORTGAGE', True, WHITE), (685, 800))
+    screen.blit(font.render('MORTGAGE', True, WHITE), (660, 800))
 
 
 
     #   UNMORTGAGE
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 5 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 5 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 15)
     font.set_bold(True)
-    screen.blit(font.render('UNMORTGAGE', True, WHITE), (845, 800))
+    screen.blit(font.render('UNMORTGAGE', True, WHITE), (820, 800))
 
+
+
+    #   DECIDE WINNER
+    pygame.draw.rect(screen,
+                     color,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 6 + OPTION_BOARD_SPACING,
+                      BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
+                      (OPTION_WIDTH,
+                      OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 15)
+    font.set_bold(True)
+    screen.blit(font.render('DEC. WINNER', True, WHITE), (990, 800))
 
 
     #   RULES
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 6 + OPTION_MARGIN * 5 + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 7 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
     font.set_bold(True)
-    screen.blit(font.render('RULES(?)', True, WHITE), (1140, 800))
+    screen.blit(font.render('RULES(?)', True, WHITE), (1160, 800))
 
 
 
     #   QUIT GAME
     pygame.draw.rect(screen,
                      color,
-                     (((OPTION_MARGIN + OPTION_WIDTH) * 7 + OPTION_MARGIN * 5 + OPTION_BOARD_SPACING,
+                     (((OPTION_MARGIN + OPTION_WIDTH) * 8 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT)))
 
     font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
     font.set_bold(True)
-    screen.blit(font.render('QUIT GAME', True, WHITE), (1290, 800))
+    screen.blit(font.render('QUIT GAME', True, WHITE), (1315, 800))
 
 
 
@@ -133,7 +146,7 @@ def create_option_rects():
 
     # roll dice
     
-    rect = pygame.Rect((OPTION_MARGIN + OPTION_BOARD_SPACING,
+    rect = pygame.Rect((OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -141,7 +154,7 @@ def create_option_rects():
 
     # build
     
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 1 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 1 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -149,7 +162,7 @@ def create_option_rects():
 
     # trade
     
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 2 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 2 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -157,7 +170,7 @@ def create_option_rects():
 
     # sell
 
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 3 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 3 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -165,7 +178,7 @@ def create_option_rects():
 
     # mortgage
     
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 4 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 4 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -173,7 +186,14 @@ def create_option_rects():
 
     # unmortgage
 
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 5 + OPTION_MARGIN + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 5 + OPTION_BOARD_SPACING,
+                      BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
+                      (OPTION_WIDTH,
+                      OPTION_HEIGHT))
+    Option_Rects.append(rect)
+
+    # decide winner
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 6 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -181,7 +201,7 @@ def create_option_rects():
 
     #rules
 
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 6 + OPTION_MARGIN * 5 + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 7 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
@@ -189,7 +209,7 @@ def create_option_rects():
 
     # quit game
 
-    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 7 + OPTION_MARGIN * 5 + OPTION_BOARD_SPACING,
+    rect = pygame.Rect(((OPTION_MARGIN + OPTION_WIDTH) * 8 + OPTION_BOARD_SPACING,
                       BOARD_HEIGHT + OPTION_MARGIN - OPTION_BOARD_SPACING),
                       (OPTION_WIDTH,
                       OPTION_HEIGHT))
