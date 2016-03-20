@@ -26,7 +26,7 @@ Rules :
 """
 
 
-def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Cur_Mark,Other_Mark):
+def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Cur_Mark,Other_Mark,Cur_Other_Mark,Other_Other_Mark):
 
 
     send_amount = 0
@@ -35,7 +35,7 @@ def update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,O
     receive_property = set()
 
 
-    offer,send_amount,send_property,receive_amount,receive_property = display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,send_amount,receive_amount,send_property,receive_property)
+    offer,send_amount,send_property,receive_amount,receive_property = display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,Cur_Other_Mark,Other_Other_Mark,send_amount,receive_amount,send_property,receive_property)
 
 
     if offer == True:
