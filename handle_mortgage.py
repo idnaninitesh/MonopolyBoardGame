@@ -38,8 +38,7 @@ def handle_mortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Inf
 
     player = Players[cur_player]
 
-    for prop in player.property_owned:
-        Mark.append(prop)
+    Mark.extend(player.property_owned)
 
     if Mark != []:
         update_game_mortgage(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Mark)
