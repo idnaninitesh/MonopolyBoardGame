@@ -37,11 +37,9 @@ def handle_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Ca
 
     player = Players[cur_player]
 
-    for prop in player.property_owned:
-        Mark.append(prop)
+    Mark.extend(player.property_owned)
 
-    for prop in player.property_mortgaged:
-        Mark.append(prop)
+    Mark.extend(player.property_mortgaged)
 
     if Mark != []:
         update_game_sell(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Mark)
