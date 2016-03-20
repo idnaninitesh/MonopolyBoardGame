@@ -52,22 +52,52 @@ def handle_trade(screen,Players,Cards,cur_player,Cards_Rects,Option_Rects,Info_C
         other = Players[other_player]
 
         Cur_Mark = []
+        Cur_Other_Mark = []
         Other_Mark = []
+        Other_Other_Mark = []
+        
+        Cur_Mark.extend(player.property_owned)
+        
+        Cur_Mark.extend(player.property_mortgaged)
 
         for prop in player.property_owned:
-            Cur_Mark.append(prop)
+            if Cards[prop].houses_built > 0 or Cards[prop].hotel_built > 0:
+                del_color = []           
+                for color_cards in player.color_cards_owned:
+                    if prop in color_cards:
+                        del_color = color_cards
+                if del_color != []:
+                    for card in del_color:
+                        Cur_Mark.remove(card)
+                            
+        for tmp in Players:
+            if tmp != player:
+                Cur_Other_Mark.extend(tmp.property_owned)
+                Cur_Other_Mark.extend(tmp.property_mortgaged)
 
-        for prop in player.property_mortgaged:
-            Cur_Mark.append(prop)
+
+        Other_Mark.extend(other.property_owned)
+
+        Other_Mark.extend(other.property_mortgaged)
 
         for prop in other.property_owned:
-            Other_Mark.append(prop)
+            if Cards[prop].houses_built > 0 or Cards[prop].hotel_built > 0:
+                del_color = []            
+                for color_cards in other.color_cards_owned:
+                    if prop in color_cards:
+                        del_color = color_cards
+                if del_color != []:
+                    for card in del_color:
+                        Other_Mark.remove(card)
 
-        for prop in other.property_mortgaged:
-            Other_Mark.append(prop)
+        for tmp in Players:
+            if tmp != other:
+                Other_Other_Mark.extend(tmp.property_owned)
+                Other_Other_Mark.extend(tmp.property_mortgaged)
+
 
         if Cur_Mark != None or Other_Mark != None:
-            update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Cur_Mark,Other_Mark)
+            update_game_trade(screen,Players,Cards,cur_player,other_player,Cards_Rects,Option_Rects,Info_Cards_Rects,Cur_Mark,Other_Mark,Cur_Other_Mark,Other_Other_Mark)
             
 
 
