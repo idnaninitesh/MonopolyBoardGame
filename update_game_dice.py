@@ -45,7 +45,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
 
     
 
-    if final_card < initial_card:
+    if final_card < initial_card and not (initial_card == 7 and final_card == 4):
         
         display_pass_go_window(screen)
         
@@ -63,16 +63,11 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
             temp.move_player(screen,temp.cur_position)
 
 
-    # go card
-
-    if final_card == 0:
-        player.cur_balance += 200
-
     # chance cards
     # display card information
     # execute card detail
 
-    elif final_card == 7 or final_card == 22 or final_card == 36:
+    if final_card == 7 or final_card == 22 or final_card == 36:
         new_card = execute_chance(screen,final_card,Players,Cards,cur_player)
         if new_card != final_card:
             
@@ -88,7 +83,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
                 player.move_player(screen,player.cur_position)
 
 
-            final_card = update_game_dice(screen,initial_card,new_card,no1,no2,Players,Cards,cur_player)
+            final_card = update_game_dice(screen,final_card,new_card,no1,no2,Players,Cards,cur_player)
             
 
     # community chest cards
@@ -111,7 +106,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
                 player.move_player(screen,player.cur_position)
 
 
-            final_card = update_game_dice(screen,initial_card,new_card,no1,no2,Players,Cards,cur_player)
+            final_card = update_game_dice(screen,final_card,new_card,no1,no2,Players,Cards,cur_player)
 
     # jail or go to jail
     # go to jail - display go to jail window
@@ -277,8 +272,7 @@ def update_game_dice(screen,initial_card,final_card,no1,no2,Players,Cards,cur_pl
                     player.isBankrupt = True
                     Players[holder].cur_balance += rent                    
 
-                
-                    
+                                   
 
 
     
@@ -322,8 +316,6 @@ def execute_chance(screen,final_card,Players,Cards,cur_player):
     elif card == 3:
         final_card = ((round(final_card/10))*10 + 5)%40
     elif card == 4:
-        if final_card > 11:
-            player.cur_balance += 200
         final_card = 11
     elif card == 5:
         player.cur_balance += 50
@@ -354,8 +346,6 @@ def execute_chance(screen,final_card,Players,Cards,cur_player):
             player.cur_balance -= 15
             player.isBankrupt = True
     elif card == 11:
-        if final_card > 5:
-            player.cur_balance += 200
         final_card = 5
     elif card == 12:
         final_card = 39
@@ -385,7 +375,7 @@ def execute_chance(screen,final_card,Players,Cards,cur_player):
 """
 
 1) Advance to Go (Collect $200) 
-2) Bank error in your favor – collect $75 
+2) Bank error in your favor – collect $200 
 3) Doctor's fees – Pay $50 
 4) Get out of jail free – this card may be kept until needed, or sold 
 5) Go to jail – go directly to jail – Do not pass Go, do not collect $200 
@@ -405,7 +395,7 @@ def execute_chance(screen,final_card,Players,Cards,cur_player):
 
 def execute_community(screen,final_card,Players,Cards,cur_player):
 
-
+    
     player = Players[cur_player]
     card = randint(1,17)
 
@@ -414,7 +404,7 @@ def execute_community(screen,final_card,Players,Cards,cur_player):
     if card == 1:
         final_card = 0
     elif card == 2:
-        player.cur_balance += 75
+        player.cur_balance += 200
     elif card == 3:
         if player.cur_balance > 50:
             player.cur_balance -= 50
@@ -424,6 +414,7 @@ def execute_community(screen,final_card,Players,Cards,cur_player):
         player.jail_card = True
     elif card == 5:
         final_card = 10
+        player.cur_balance -= 200
     elif card == 6:
         for temp in Players:
             if player != temp:
