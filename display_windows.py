@@ -59,6 +59,8 @@ def display_start_game_window(screen,Players,Cards,cur_player):
             if event.type == pygame.QUIT:
                 done = True
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -250,6 +252,8 @@ def display_jail_card_window(screen):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -330,6 +334,8 @@ def display_buy_property_window(screen,final_card,Players,Cards,cur_player):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -448,6 +454,8 @@ def display_end_turn_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
     
                 mouse_pos = pygame.mouse.get_pos()
@@ -552,7 +560,7 @@ def display_chance_window(screen,card):
 
     """
     chanceImg = pygame.image.load('img/chance' + str(card) + '.png')
-    propImg = pygame.transform.scale(chanceImg,(400,300))
+    chanceImg = pygame.transform.scale(chanceImg,(400,300))
     screen.blit(chanceImg,(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 20))
 
 
@@ -619,7 +627,7 @@ def display_community_window(screen,card):
     """
 
     commImg = pygame.image.load('img/comm' + str(card) + '.png')
-    propImg = pygame.transform.scale(commImg,(400,300))
+    commImg = pygame.transform.scale(commImg,(400,300))
     screen.blit(commImg,(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 20))
 
 
@@ -780,6 +788,8 @@ def display_build_window(screen,Players,Cards,cur_player,Mark):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -791,6 +801,7 @@ def display_build_window(screen,Players,Cards,cur_player,Mark):
 
                 if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
                     start = True
+                    build_card = None
 
                 else:
                     build_card = get_rect_pressed_index(mouse_pos,Build_Cards_Rects)
@@ -874,6 +885,8 @@ def display_build_confirm_window(screen,card):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -947,12 +960,21 @@ def display_sell_window(screen,Players,Cards,cur_player,Mark):
         else:
             color = WHITE
 
+        #half the height for mortgaged property
+
+        height = INFO_CARD_HEIGHT
+
+        if Cards[player_property].status == 2:
+            height = int((INFO_CARD_HEIGHT+1)/2)
+        else:
+            height = INFO_CARD_HEIGHT
+
         pygame.draw.rect(screen,
                          color,
                          ((Sell_Cards_Rects[player_property].left,
                           Sell_Cards_Rects[player_property].top),
                           (INFO_CARD_WIDTH,
-                           INFO_CARD_HEIGHT)))
+                           height)))
 
         if Cards[player_property].hotel_built == 1:
             pygame.gfxdraw.circle(screen, Sell_Cards_Rects[player_property].left + 12,Sell_Cards_Rects[player_property].top + 12, 5, BLACK)
@@ -997,6 +1019,8 @@ def display_sell_window(screen,Players,Cards,cur_player,Mark):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1008,6 +1032,7 @@ def display_sell_window(screen,Players,Cards,cur_player,Mark):
 
                 if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
                     start = True
+                    sell_card = None
 
                 else:
                     sell_card = get_rect_pressed_index(mouse_pos,Sell_Cards_Rects)
@@ -1061,9 +1086,12 @@ def display_sell_confirm_window(screen,card):
     elif card.houses_built > 0:
         screen.blit(font.render('Sell HOUSE on ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
         screen.blit(font.render('RETURN VALUE : $ ' + str(card.house_cost//2),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
-    else:
+    elif card.status == 1:
         screen.blit(font.render('Sell Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
         screen.blit(font.render('RETURN VALUE : $ ' + str(int(card.cost*0.9)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
+    elif card.status == 2:
+        screen.blit(font.render('Sell Card ' + str(card.name),True,WHITE),(ACTION_SCREEN_LEFT + 20,ACTION_SCREEN_TOP + 10))
+        screen.blit(font.render('RETURN VALUE : $ ' + str(int(card.cost*0.4)),True,WHITE),(ACTION_SCREEN_LEFT + 90,ACTION_SCREEN_TOP + 70))
 
 
 
@@ -1098,6 +1126,8 @@ def display_sell_confirm_window(screen,card):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1220,6 +1250,8 @@ def display_mortgage_window(screen,Players,Cards,cur_player,Mark):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1231,6 +1263,7 @@ def display_mortgage_window(screen,Players,Cards,cur_player,Mark):
 
                 if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
                     start = True
+                    mortgage_card = None
 
                 else:
                     mortgage_card = get_rect_pressed_index(mouse_pos,Mortgage_Cards_Rects)
@@ -1314,6 +1347,8 @@ def display_mortgage_confirm_window(screen,card):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1436,6 +1471,8 @@ def display_unmortgage_window(screen,Players,Cards,cur_player,Mark):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1447,6 +1484,7 @@ def display_unmortgage_window(screen,Players,Cards,cur_player,Mark):
 
                 if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN  and y >= 550 and y <= 550 + OPTION_HEIGHT:
                     start = True
+                    unmortgage_card = None
 
                 else:
                     unmortgage_card = get_rect_pressed_index(mouse_pos,Unmortgage_Cards_Rects)
@@ -1530,6 +1568,8 @@ def display_unmortgage_confirm_window(screen,card):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1605,6 +1645,8 @@ def display_quit_window(screen):
             if event.type == pygame.QUIT:
                 done = True
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1669,6 +1711,8 @@ def display_rules_window(screen):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1768,6 +1812,8 @@ def display_select_trade_player_window(screen,Players,Cards,cur_player):
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -1798,7 +1844,7 @@ def display_select_trade_player_window(screen,Players,Cards,cur_player):
 
 # display window to allow user to enter trade infomation
 
-def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,int_send,int_receive,int_send_prop,int_receive_prop):
+def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,Other_Mark,Cur_Other_Mark,Other_Other_Mark,int_send,int_receive,int_send_prop,int_receive_prop):
 
 
     send_amount = 0
@@ -1856,12 +1902,21 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
         else:
             color = WHITE
 
+        #half the height for mortgaged property
+
+        height = INFO_CARD_HEIGHT
+
+        if Cards[player_property].status == 2:
+            height = int((INFO_CARD_HEIGHT+1)/2)
+        else:
+            height = INFO_CARD_HEIGHT
+
         pygame.draw.rect(screen,
                          color,
                          ((Send_Cards_Rects[player_property].left,
                           Send_Cards_Rects[player_property].top),
                           (INFO_CARD_WIDTH,
-                           INFO_CARD_HEIGHT)))
+                           height)))
 
         if Cards[player_property].hotel_built == 1:
             pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 12,Send_Cards_Rects[player_property].top + 12, 5, BLACK)
@@ -1881,6 +1936,16 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                 pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 7,Send_Cards_Rects[player_property].top + 18, 3, BLACK)
                 pygame.gfxdraw.circle(screen, Send_Cards_Rects[player_property].left + 18,Send_Cards_Rects[player_property].top + 18, 3, BLACK)
             
+
+    for other_property in Cur_Other_Mark:
+        color = DISABLED
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Send_Cards_Rects[other_property].left,
+                          Send_Cards_Rects[other_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
 
 
     
@@ -1906,12 +1971,21 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
         else:
             color = WHITE
 
+        #half the height for mortgaged property
+
+        height = INFO_CARD_HEIGHT
+
+        if Cards[player_property].status == 2:
+            height = int((INFO_CARD_HEIGHT+1)/2)
+        else:
+            height = INFO_CARD_HEIGHT
+
         pygame.draw.rect(screen,
                          color,
                          ((Receive_Cards_Rects[player_property].left,
                           Receive_Cards_Rects[player_property].top),
                           (INFO_CARD_WIDTH,
-                           INFO_CARD_HEIGHT)))
+                           height)))
         
         if Cards[player_property].hotel_built == 1:
             pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 12,Receive_Cards_Rects[player_property].top + 12, 5, BLACK)
@@ -1930,6 +2004,16 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
                 pygame.gfxdraw.circle(screen,Receive_Cards_Rects[player_property].left + 18,Receive_Cards_Rects[player_property].top + 7, 3, BLACK)
                 pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 7,Receive_Cards_Rects[player_property].top + 18, 3, BLACK)
                 pygame.gfxdraw.circle(screen, Receive_Cards_Rects[player_property].left + 18,Receive_Cards_Rects[player_property].top + 18, 3, BLACK)
+
+    for other_property in Other_Other_Mark:
+        color = DISABLED
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((Receive_Cards_Rects[other_property].left,
+                          Receive_Cards_Rects[other_property].top),
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
             
 
 
@@ -1989,6 +2073,8 @@ def display_trade_window(screen,Players,Cards,cur_player,other_player,Cur_Mark,O
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -2222,6 +2308,8 @@ def display_trade_confirm_window(screen,Send_Cards,send_amount,Receive_Cards,rec
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 
                 mouse_pos = pygame.mouse.get_pos()
@@ -2289,6 +2377,8 @@ def display_bankrupt_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
 
             if event.type == pygame.QUIT:
                 start = True
+                pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
     
                 mouse_pos = pygame.mouse.get_pos()
@@ -2333,6 +2423,132 @@ def display_bankrupt_window(screen,Players,Cards,cur_player,Cards_Rects,Option_R
 
     return quit_player
         
+#   --------------------    DECIDE WINNER    -------------------
 
+# display window to allow user to view winner
+# allow user to quit or continue with the game
+
+def display_decide_winner_window(screen,Players,Players_Worth):
+
+
+    pygame.gfxdraw.box(screen,
+                       ((ACTION_SCREEN_LEFT,ACTION_SCREEN_TOP),
+                        (ACTION_SCREEN_WIDTH,ACTION_SCREEN_HEIGHT)),TRANSPARENT)
+ 
+
+    left = 350
+    top = 250
+    width = 360
+    height = 50
+    i = 0
+
+    Worth_Set = set(Players_Worth)
+    Worth_List = list(Worth_Set)
+    Worth_List.sort()
+    Worth_List.reverse()
     
+    for player in Players:
+    
+        if player.color == "RED":
+            color = RED
+        elif player.color == "GREEN":
+            color = GREEN
+        elif player.color == "BLUE":
+            color = BLUE
+        elif player.color == "YELLOW":
+            color = YELLOW
+        else:
+            color = WHITE
+
+        pygame.draw.rect(screen,
+                         color,
+                         ((left,top),
+                         (width,height)),2)
+        
+
+        font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+        screen.blit(font.render('' + player.name, True, color), (left + 30,top + 10))
+        screen.blit(font.render('$ ' + str(Players_Worth[i]), True, color), (left + 300,top + 10))
+
+        # winner
+        if Worth_List.index(Players_Worth[i]) == 0:
+            screen.blit(font.render(' (WINNER) ', True, color), (left + 100,top + 10))
+        else:
+            screen.blit(font.render('' + str(Worth_List.index(Players_Worth[i])), True, color), (left + 100,top + 10))
+            
+
+        top = top + 50
+        i = i + 1
+
+
+    flag = 0
+
+    if len(Players) == 1:
+        flag = 1
+
+
+    if flag == 0:
+        
+        pygame.draw.rect(screen,
+                         BLUE,
+                         ((ACTION_SCREEN_LEFT + OPTION_MARGIN,500),
+                          (OPTION_WIDTH,OPTION_HEIGHT)))
+
+        font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+        screen.blit(font.render('DONE',True,WHITE),(ACTION_SCREEN_LEFT + OPTION_MARGIN + 10,505))
+
+
+    pygame.draw.rect(screen,
+                     RED,
+                     ((ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN,500),
+                      (OPTION_WIDTH,OPTION_HEIGHT)))
+
+    font = pygame.font.SysFont(CARD_TEXT_STYLE, 25)
+    screen.blit(font.render('QUIT',True,WHITE),(ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN - OPTION_WIDTH + 10,505))
+
+
+    clock = pygame.time.Clock()
+
+    start = False
+    end = False
+
+
+    while not start:
+        
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                end = True
+                start = True
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                
+                mouse_pos = pygame.mouse.get_pos()
+
+                x = mouse_pos[0]
+                y = mouse_pos[1]
+
+                # done clicked
+                if flag == 0:
+                    
+                    if x >= ACTION_SCREEN_LEFT + OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + OPTION_MARGIN + OPTION_WIDTH  and y >=500 and y <= 500 + OPTION_HEIGHT:
+                        start = True
+                        end = False
+
+                # quit clicked
+
+                if x >= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_WIDTH - OPTION_MARGIN and x <= ACTION_SCREEN_LEFT + ACTION_SCREEN_WIDTH - OPTION_MARGIN and y >= 500  and y <= 500 + OPTION_HEIGHT:
+                    end = True
+                    start = True
+
+        
+
+        clock.tick(60)
+
+        pygame.display.update()
+
+
+    return end
+
 
