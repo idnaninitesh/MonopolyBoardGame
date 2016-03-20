@@ -205,49 +205,55 @@ def run_game():
                             
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
                             font.set_bold(True)
-                            screen.blit(font.render('ROLL DICE', True, WHITE), (50, 800))
+                            screen.blit(font.render('ROLL DICE', True, WHITE), (22, 800))
 
                         elif rect_index == 1:
                             
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
                             font.set_bold(True)
-                            screen.blit(font.render('BUILD', True, WHITE), (230, 800))
+                            screen.blit(font.render('BUILD', True, WHITE), (205, 800))
 
                         elif rect_index == 2:
                             
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
                             font.set_bold(True)
-                            screen.blit(font.render('TRADE', True, WHITE), (390, 800))
+                            screen.blit(font.render('TRADE', True, WHITE), (365, 800))
 
                         elif rect_index == 3:
                             
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
                             font.set_bold(True)
-                            screen.blit(font.render('SELL', True, WHITE), (560, 800))
+                            screen.blit(font.render('SELL', True, WHITE), (535, 800))
 
                         elif rect_index == 4:
                             
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
                             font.set_bold(True)
-                            screen.blit(font.render('MORTGAGE', True, WHITE), (685, 800))
+                            screen.blit(font.render('MORTGAGE', True, WHITE), (660, 800))
 
                         elif rect_index == 5:
                             
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 15)
                             font.set_bold(True)
-                            screen.blit(font.render('UNMORTGAGE', True, WHITE), (845, 800))
+                            screen.blit(font.render('UNMORTGAGE', True, WHITE), (820, 800))
 
                         elif rect_index == 6:
                             
-                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 15)
                             font.set_bold(True)
-                            screen.blit(font.render('RULES(?)', True, WHITE), (1140, 800))
+                            screen.blit(font.render('DEC. WINNER', True, WHITE), (990, 800))
 
                         elif rect_index == 7:
                             
+                            font = pygame.font.SysFont(CARD_TEXT_STYLE, 20)
+                            font.set_bold(True)
+                            screen.blit(font.render('RULES(?)', True, WHITE), (1160, 800))
+
+                        elif rect_index == 8:
+                            
                             font = pygame.font.SysFont(CARD_TEXT_STYLE, 18)
                             font.set_bold(True)
-                            screen.blit(font.render('QUIT GAME', True, WHITE), (1290, 800))
+                            screen.blit(font.render('QUIT GAME', True, WHITE), (1315, 800))
 
 
                         pygame.display.update()
