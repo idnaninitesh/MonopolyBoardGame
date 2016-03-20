@@ -13,8 +13,24 @@ from Card import *
 
 def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 100,Mark = []):
 
+    Other_Mark = []
+
     if Mark == []:
         Mark = Players[cur_player].property_owned
+        Mark.extend(Players[cur_player].property_mortgaged)
+
+        
+        current = Players[cur_player]
+
+        # adding other player property
+        Other_Mark = []
+        
+        for player in Players:
+            if current != player:
+                Other_Mark.extend(player.property_owned)
+                Other_Mark.extend(player.property_mortgaged)
+
+        
     
     # create cards
 
@@ -150,11 +166,20 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
         else:
             color = WHITE
 
+        height = INFO_CARD_HEIGHT
+
+        #half the height for mortgaged property
+        
+        if Cards[player_property].status == 2:
+            height = int((INFO_CARD_HEIGHT+1)/2)
+        else:
+            height = INFO_CARD_HEIGHT
+
         pygame.draw.rect(screen,
                          color,
                          (Cards[player_property].info_pos,
                           (INFO_CARD_WIDTH,
-                           INFO_CARD_HEIGHT)))
+                           height)))
 
         if Cards[player_property].hotel_built == 1:
             pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 12,Cards[player_property].info_pos[1] + 12, 5, BLACK)
@@ -174,6 +199,17 @@ def create_player_info(screen,Players,Cards,cur_player,dist_x = 1155,dist_y = 10
                 pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 7,Cards[player_property].info_pos[1] + 18, 3, BLACK)
                 pygame.gfxdraw.circle(screen, Cards[player_property].info_pos[0] + 18,Cards[player_property].info_pos[1] + 18, 3, BLACK)
             
+
+    # UPDATING OTHER PLAYER PROPERTY
+    
+    for other_property in Other_Mark:
+        color = DISABLED
+
+        pygame.draw.rect(screen,
+                         color,
+                         (Cards[other_property].info_pos,
+                          (INFO_CARD_WIDTH,
+                           INFO_CARD_HEIGHT)))
 
     
         
