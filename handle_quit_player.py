@@ -11,6 +11,7 @@ from create_player_info import *
 from handle_mouse_event import *
 from update_game_dice import *
 from handle_game import *
+from handle_decide_winner import *
 
 
 # handles all the action to remove player from the game
@@ -45,4 +46,8 @@ def handle_quit_player(screen,Players,Cards,cur_player):
     # remove player from the list
 
     Players.remove(player)
+
+    if len(Players) == 1:
+        handle_decide_winner(screen,Players,Cards,0)
+        
     
