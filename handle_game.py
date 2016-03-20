@@ -17,6 +17,7 @@ from handle_trade import *
 from handle_sell import *
 from handle_mortgage import *
 from handle_unmortgage import *
+from handle_decide_winner import *
 from handle_rules import *
 from handle_quit import *
 
@@ -35,7 +36,7 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
 
     # a game action was clicked
 
-    if len(Rects) == 8 and rect_index != 8:
+    if len(Rects) == 9 and rect_index != 9:
         
 
         if rect_index == 0:
@@ -65,9 +66,13 @@ def handle_game(screen,Rects,rect_index,Players,Cards,cur_player,Cards_Rects,Opt
 
         elif rect_index == 6:
 
-            cur_player = handle_rules(screen,Players,Cards,cur_player)
+            cur_player = handle_decide_winner(screen,Players,Cards,cur_player)
 
         elif rect_index == 7:
+
+            cur_player = handle_rules(screen,Players,Cards,cur_player)
+
+        elif rect_index == 8:
 
             cur_player = handle_quit(screen,Players,Cards,cur_player)
 
